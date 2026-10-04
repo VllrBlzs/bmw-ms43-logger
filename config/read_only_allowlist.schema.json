@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/bmw-ms43/read-only-allowlist.schema.json",
+  "title": "BMW MS43 read-only acquisition profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "profile_id",
+    "status",
+    "backend",
+    "vehicle",
+    "sgbd",
+    "operations"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "profile_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{2,79}$"
+    },
+    "status": { "enum": ["draft", "approved", "retired"] },
+    "backend": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "release", "commit_sha"],
+      "properties": {
+        "name": { "const": "EdiabasLib" },
+        "release": { "type": "string", "minLength": 1 },
+        "commit_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+      }
+    },
+    "vehicle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["chassis", "engine", "dme"],
+      "properties": {
+        "chassis": { "const": "E39" },
+        "engine": { "const": "M54B25" },
+        "dme": { "const": "MS43" }
+      }
+    },
+    "sgbd": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file_name", "sha256"],
+      "properties": {
+        "file_name": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+\\.(prg|PRG|grp|GRP)$" },
+        "sha256": { "type": "string", "pattern": "^[A-F0-9]{64}$" }
+      }
+    },
+    "operations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/operation" }
+    }
+  },
+  "$defs": {
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parameter_id",
+        "job",
+        "argument",
+        "result_names",
+        "value_type",
+        "unit",
+        "review"
+      ],
+      "properties": {
+        "parameter_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9]+)+$"
+        },
+        "job": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "argument": { "type": "string", "maxLength": 512 },
+        "result_names": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 128 }
+        },
+        "value_type": { "enum": ["number", "integer", "boolean", "string"] },
+        "unit": { "type": ["string", "null"] },
+        "review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "reviewed_at_utc", "reviewed_by", "reason_read_only"],
+          "properties": {
+            "source": { "type": "string", "minLength": 1 },
+            "reviewed_at_utc": { "type": "string", "format": "date-time" },
+            "reviewed_by": { "type": "string", "minLength": 1 },
+            "reason_read_only": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    }
+  }
+}

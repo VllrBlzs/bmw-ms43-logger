@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "profile_id": "bmw-e39-m54b25-ms43-local-v1",
+  "status": "draft",
+  "backend": {
+    "name": "EdiabasLib",
+    "release": "binaries_20260607",
+    "commit_sha": "947dfbbc686290625e3fc9cad044e69af64d8fe9"
+  },
+  "vehicle": {
+    "chassis": "E39",
+    "engine": "M54B25",
+    "dme": "MS43"
+  },
+  "sgbd": {
+    "file_name": "ms430ds0.prg",
+    "sha256": "8C4714D638DE8E9D765A86EEC9746495883366D21126A454AB2EF28279E3A523"
+  },
+  "operations": []
+}
