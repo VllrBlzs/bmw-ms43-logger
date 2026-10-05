@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BmwMs43Logger.Core", "src\B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BmwMs43Logger.Poc", "src\BmwMs43Logger.Poc\BmwMs43Logger.Poc.csproj", "{9817FDEB-1D67-44BB-A85C-F0A9E319D3E8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{07C2787E-EAC7-C090-1BA3-A61EC2A24D84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BmwMs43Logger.MetadataProbe", "tools\BmwMs43Logger.MetadataProbe\BmwMs43Logger.MetadataProbe.csproj", "{AE50A87E-74DF-4D63-8174-B3AE23BF1B1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,18 @@ Global
 		{9817FDEB-1D67-44BB-A85C-F0A9E319D3E8}.Release|x64.Build.0 = Release|Any CPU
 		{9817FDEB-1D67-44BB-A85C-F0A9E319D3E8}.Release|x86.ActiveCfg = Release|Any CPU
 		{9817FDEB-1D67-44BB-A85C-F0A9E319D3E8}.Release|x86.Build.0 = Release|Any CPU
+		{AE50A87E-74DF-4D63-8174-B3AE23BF1B1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE50A87E-74DF-4D63-8174-B3AE23BF1B1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE50A87E-74DF-4D63-8174-B3AE23BF1B1C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AE50A87E-74DF-4D63-8174-B3AE23BF1B1C}.Debug|x64.Build.0 = Debug|Any CPU
+		{AE50A87E-74DF-4D63-8174-B3AE23BF1B1C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AE50A87E-74DF-4D63-8174-B3AE23BF1B1C}.Debug|x86.Build.0 = Debug|Any CPU
+		{AE50A87E-74DF-4D63-8174-B3AE23BF1B1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE50A87E-74DF-4D63-8174-B3AE23BF1B1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE50A87E-74DF-4D63-8174-B3AE23BF1B1C}.Release|x64.ActiveCfg = Release|Any CPU
+		{AE50A87E-74DF-4D63-8174-B3AE23BF1B1C}.Release|x64.Build.0 = Release|Any CPU
+		{AE50A87E-74DF-4D63-8174-B3AE23BF1B1C}.Release|x86.ActiveCfg = Release|Any CPU
+		{AE50A87E-74DF-4D63-8174-B3AE23BF1B1C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,5 +66,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{6F98F9C4-5E65-45EA-9B1B-70817CCA0120} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{9817FDEB-1D67-44BB-A85C-F0A9E319D3E8} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{AE50A87E-74DF-4D63-8174-B3AE23BF1B1C} = {07C2787E-EAC7-C090-1BA3-A61EC2A24D84}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "name": "EdiabasLib",
+  "release": "binaries_20260607",
+  "commit_sha": "947dfbbc686290625e3fc9cad044e69af64d8fe9",
+  "sdk": "10.0.401",
+  "runtime_target_framework": "net10.0-windows10.0.26100.0",
+  "runtime_assembly_sha256": "A4DA410DA21D4F1623593EC01D7153FD47306B0C9B59B8FBA3A51F36EC2B3D59",
+  "observed_at_utc": "2026-10-05T17:14:00Z"
+}
