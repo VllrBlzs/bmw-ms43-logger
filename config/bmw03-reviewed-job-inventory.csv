@@ -1,0 +1,231 @@
+job,review_status,review_group,reason,car_test_tier,argument_count,result_count,source_inventory_status
+ABGAS_VARIANTE_LESEN,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,7,conditional
+ABSCHALTBEDINGUNG_FGR_LOESCHEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+ADAPT_DROSSELKLAPPE_LOESCHEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+ADAPT_KLOPFREGELUNG_LOESCHEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+ADAPT_LAMBDA_LOESCHEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+ADAPT_LAUFUNRUHE_LOESCHEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+ADAPT_LEERLAUF_LOESCHEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+ADAPT_LM_SENSOR_LOESCHEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+ADAPT_LOESCHEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+ADAPT_SCHLIESSZEIT_LOESCHEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+ADAPT_VARIANTEN_LOESCHEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+AIF_LESEN,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,11,excluded
+CO_ABGLEICH_LESEN,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,3,excluded
+CO_ABGLEICH_PROGRAMMIEREN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,2,excluded
+CO_ABGLEICH_VERSTELLEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+DIAGNOSE_AUFRECHT,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+DIAGNOSE_ENDE,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+DIAGNOSE_STOP,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+ECU_CONFIG,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,17,excluded
+FS_LESEN,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,48,conditional
+FS_LOESCHEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+FS_QUICK_LESEN,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,4,excluded
+FS_SELEKTIV_LOESCHEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,10,1,excluded
+FS_SHADOW_LESEN,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,42,conditional
+FUSSHEBELFEHLBEDIENUNG_LOESCHEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+IDENT,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,20,excluded
+IDENT_AIF,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,22,excluded
+INFO,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,7,excluded
+INITIALISIERUNG,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,0,excluded
+KW_GEBER_FEHLER_LESEN,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,14,conditional
+KW_GEBER_FEHLER_RUECKSETZEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,5,excluded
+LESEN_SYSTEMCHECK_DMTL,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,5,conditional
+LESEN_SYSTEMCHECK_LAUFUNRUHE,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,7,conditional
+LESEN_SYSTEMCHECK_SEK_LUFT,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,5,conditional
+LESEN_SYSTEMCHECK_TANK_LECK,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,6,conditional
+LESEN_SYSTEMCHECK_TEV_FUNC,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,5,conditional
+LL_ABGLEICH_LESEN,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,3,excluded
+LL_ABGLEICH_PROGRAMMIEREN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,2,excluded
+LL_ABGLEICH_VERSTELLEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+MEHRFACHSTARTWERTABGLEICH,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,3,excluded
+PRUEFCODE_LESEN,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,2,excluded
+PRUEFSTEMPEL_LESEN,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,4,excluded
+PRUEFSTEMPEL_SCHREIBEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,3,1,excluded
+SEED_KEY,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,3,conditional
+SPEICHER_LIN_LESEN,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,2,2,conditional
+START_SYSTEMCHECK_DMTL,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,2,excluded
+START_SYSTEMCHECK_DMTL_ECOS,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,3,excluded
+START_SYSTEMCHECK_LAUFUNRUHE,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,2,excluded
+START_SYSTEMCHECK_SEK_LUFT,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,2,excluded
+START_SYSTEMCHECK_SONDENHEIZUNG,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,2,excluded
+START_SYSTEMCHECK_TANK_LECK,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,3,excluded
+START_SYSTEMCHECK_TEV_FUNC,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,2,excluded
+START_SYSTEMCHECK_VERTAUSCHT_LAMBDASONDEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,2,excluded
+STATUS_ADAP_AKTIV,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,excluded
+STATUS_ADD,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,excluded
+STATUS_ADD_2,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,excluded
+STATUS_AN_LUFTTEMPERATUR,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,conditional
+STATUS_AN_LUFTTEMPERATUR_ADC,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,conditional
+STATUS_AN_LUFTTEMPERATUR_MWB,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,conditional
+STATUS_CODIER_CHECKSUMME,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,2,excluded
+STATUS_DATENSATZ,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,2,excluded
+STATUS_DIAGNOSEWERTE_KAT_LS_SEK,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,12,conditional
+STATUS_DICHTHEIT_MESS_VANOS_A,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,4,conditional
+STATUS_DICHTHEIT_MESS_VANOS_E,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,4,conditional
+STATUS_DIGITAL,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,1,0,53,excluded
+STATUS_DIGITAL_OBDII,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,19,conditional
+STATUS_DK1_WINKEL,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_DK2_WINKEL,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_DKP_WINKEL,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,conditional
+STATUS_DK_ADAP_BEDARF,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,2,excluded
+STATUS_DK_ADAP_LIH,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,conditional
+STATUS_DK_ADAP_UMA_EL,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,conditional
+STATUS_DK_ADAP_UMA_MECH,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,conditional
+STATUS_DMTL_EOL,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,3,conditional
+STATUS_DREHZAHL_E_LUEFTER_VON_AC,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_EINSPRITZZEIT,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_FEINLECKMESSUNG_DMTL,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,2,conditional
+STATUS_FGR_ABSCHALTUNG,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,27,conditional
+STATUS_FREIGABEZAEHLER_DMTL,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,2,conditional
+STATUS_FUSSHEBELFEHLBETAETIGUNG,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,4,conditional
+STATUS_GEBERRAD_ADAPTION,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,excluded
+STATUS_GESCHWINDIGKEIT,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_GROBLECKMESSUNG_DMTL,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,2,conditional
+STATUS_INT,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,conditional
+STATUS_INT_2,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,conditional
+STATUS_KL15,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_KLOPF_ADC1,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_KLOPF_ADC2,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_KM_MIL,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,3,conditional
+STATUS_KR,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,excluded
+STATUS_KUEHLW_AUSL_TEMPERATUR,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,conditional
+STATUS_KUEHLW_AUSL_TEMPERATUR_ADC,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_KUEHLW_AUSL_TEMPERATUR_MWB,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,conditional
+STATUS_K_MW_2,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_K_MW_5,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_LAMBDA_ADD_1,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,1,0,3,excluded
+STATUS_LAMBDA_ADD_2,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,1,0,3,excluded
+STATUS_LAMBDA_INTEGRATOR_1,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_LAMBDA_INTEGRATOR_2,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_LAMBDA_MUL_1,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,1,0,3,excluded
+STATUS_LAMBDA_MUL_2,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,1,0,3,excluded
+STATUS_LAST,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_LL_ADAPTION,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,excluded
+STATUS_LL_FS_ADAPTION,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,excluded
+STATUS_LL_INTEGRATOR,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_LL_KK_ADAPTION,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,excluded
+STATUS_LL_LUFTBEDARF,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_LL_STELLER_TV,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_LMM,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,conditional
+STATUS_LMM_MASSE,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_LMM_SPANNUNG,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_LS_NKAT_HEIZUNG_TV_1,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_LS_NKAT_HEIZUNG_TV_2,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_LS_NKAT_SIGNAL_1,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,1,0,3,conditional
+STATUS_LS_NKAT_SIGNAL_2,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,1,0,3,conditional
+STATUS_LS_VKAT_HEIZUNG_TV_1,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_LS_VKAT_HEIZUNG_TV_2,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_LS_VKAT_SIGNAL_1,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,1,0,3,conditional
+STATUS_LS_VKAT_SIGNAL_2,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,1,0,3,conditional
+STATUS_LUFTDRUCK,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_L_SONDE,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,conditional
+STATUS_L_SONDE_2,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,conditional
+STATUS_L_SONDE_2_H,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,conditional
+STATUS_L_SONDE_H,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,conditional
+STATUS_MDK_POTI_SPANNUNG,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,conditional
+STATUS_MESSWERTEBLOCK,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,1,0,57,conditional
+STATUS_MESS_ABBRUCH_DMTL,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,2,conditional
+STATUS_MOTORDREHZAHL,approved,validated_live_read,Exact BMW-02C tuple passed the pinned live proof.,0,0,4,approved
+STATUS_MOTORTEMPERATUR,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,conditional
+STATUS_MOTORTEMPERATUR_ADC,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,conditional
+STATUS_MOTORTEMPERATUR_MWB,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,conditional
+STATUS_MUL,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,excluded
+STATUS_MUL_2,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,5,excluded
+STATUS_OEL_TEMPERATUR,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,conditional
+STATUS_OEL_TEMPERATUR_ADC,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_OEL_TEMPERATUR_MWB,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,conditional
+STATUS_PROG_STAT_EWS,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,3,conditional
+STATUS_PWG1_WINKEL,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_PWG2_WINKEL,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_PWG_POTI_SPANNUNG,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,6,conditional
+STATUS_PWG_WINKEL,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_SYNC_MODE,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,3,conditional
+STATUS_SYSTEMCHECK_DK_WINKEL,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,4,conditional
+STATUS_SYSTEMCHECK_DMTL,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,10,conditional
+STATUS_SYSTEMCHECK_DMTL_MOTOR,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,4,conditional
+STATUS_SYSTEMCHECK_KENNFELDTHERMOSTAT,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,6,conditional
+STATUS_SYSTEMCHECK_LAUFUNRUHE,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,14,conditional
+STATUS_SYSTEMCHECK_LSH_NKAT_BANK1,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,4,conditional
+STATUS_SYSTEMCHECK_LSH_NKAT_BANK2,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,4,conditional
+STATUS_SYSTEMCHECK_LSH_VKAT_BANK1,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,4,conditional
+STATUS_SYSTEMCHECK_LSH_VKAT_BANK2,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,4,conditional
+STATUS_SYSTEMCHECK_NWG_IST_AUSLASS,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,4,conditional
+STATUS_SYSTEMCHECK_NWG_IST_EINLASS,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,4,conditional
+STATUS_SYSTEMCHECK_SEK_LUFT,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,5,conditional
+STATUS_SYSTEMCHECK_SEK_LUFT_PUMPE,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,4,conditional
+STATUS_SYSTEMCHECK_SEK_LUFT_SAF,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,7,conditional
+STATUS_SYSTEMCHECK_SEK_LUFT_VENTIL,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,4,conditional
+STATUS_SYSTEMCHECK_SONDENHEIZUNG,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,12,conditional
+STATUS_SYSTEMCHECK_TEV,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,4,conditional
+STATUS_SYSTEMCHECK_VERTAUSCHT_LAMBDASONDEN,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,15,conditional
+STATUS_UBATT,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,conditional
+STATUS_UBATT_ADC,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_VANOS_NW_FLANKENADAPTION,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,excluded
+STATUS_VANOS_NW_LAGE_AUSLASS,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_VANOS_NW_LAGE_EINLASS,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_VANOS_NW_LAGE_IST_SOLL_REF_AUSLASS,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,1,0,5,conditional
+STATUS_VANOS_NW_LAGE_IST_SOLL_REF_EINLASS,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,1,0,5,conditional
+STATUS_VANOS_NW_ROHWERT,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,4,conditional
+STATUS_VERSTELLZEIT_MESS_VANOS_A,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,6,conditional
+STATUS_VERSTELLZEIT_MESS_VANOS_E,excluded,active_test_dependent_read,Read result depends on an active/system-check workflow that v1 will not initiate.,0,0,6,conditional
+STATUS_ZSI,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STATUS_ZUENDWINKEL,conditional,offline_reviewed_live_candidate,No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.,2,0,3,conditional
+STEUERN_ABGASKLAPPE,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_DISA,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_DK_WINKEL,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_DMTL_HEIZUNG,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_DMTL_MOTOR,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_DMTL_TEV,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_DMTL_VENTIL,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_EKP,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_EV_1,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+STEUERN_EV_1_ARG,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,2,1,excluded
+STEUERN_EV_1_AUS,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+STEUERN_EV_2,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+STEUERN_EV_2_ARG,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,2,1,excluded
+STEUERN_EV_2_AUS,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+STEUERN_EV_3,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+STEUERN_EV_3_ARG,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,2,1,excluded
+STEUERN_EV_3_AUS,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+STEUERN_EV_4,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+STEUERN_EV_4_ARG,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,2,1,excluded
+STEUERN_EV_4_AUS,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+STEUERN_EV_5,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+STEUERN_EV_5_ARG,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,2,1,excluded
+STEUERN_EV_5_AUS,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+STEUERN_EV_6,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+STEUERN_EV_6_ARG,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,2,1,excluded
+STEUERN_EV_6_AUS,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+STEUERN_EV_SELEKTIV_AUSBLENDEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_E_LUEFTER,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_E_LUEFTER_ECOS,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+STEUERN_KF_THERMOSTAT,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_KO,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_LL_DREHZAHL_VERSTELLEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_LL_MANIPULATION,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,3,excluded
+STEUERN_LL_STELLER,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_LS_HEIZUNG_NKAT_BANK1,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_LS_HEIZUNG_NKAT_BANK2,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_LS_HEIZUNG_VKAT_BANK1,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_LS_HEIZUNG_VKAT_BANK2,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_MIL,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_SEK_PUMPE,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_SEK_VENTIL,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_SYNC_MODE,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,3,excluded
+STEUERN_TEMP_ANZEIGE_KOMBI,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,2,1,excluded
+STEUERN_TEV,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_VANOS_A_DICHTHEIT,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,2,1,excluded
+STEUERN_VANOS_A_SOLLWERT,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_VANOS_A_VENTIL,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_VANOS_A_VERSTELLZEIT,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,2,1,excluded
+STEUERN_VANOS_E_DICHTHEIT,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,2,1,excluded
+STEUERN_VANOS_E_SOLLWERT,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_VANOS_E_VENTIL,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+STEUERN_VANOS_E_VERSTELLZEIT,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,2,1,excluded
+STOP_SYSTEMCHECK_SEK_LUFT,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded
+TEST_SYSTEMCHECK_DMTL,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,2,excluded
+VERBRAUCH_ABGLEICH_LESEN,excluded,non_live_or_raw_diagnostic,"Read-only or static diagnostic data, but not a normal live-data channel for v1.",0,0,2,excluded
+VERBRAUCH_ABGLEICH_PROGRAMMIEREN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,2,excluded
+VERBRAUCH_ABGLEICH_VERSTELLEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,1,1,excluded
+VERBRAUCH_ABGLEICH_VERWERFEN,excluded,state_changing_or_session_control,Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.,0,0,1,excluded

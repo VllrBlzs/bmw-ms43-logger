@@ -1,0 +1,265 @@
+{
+  "schema_version": "bmw03.bounded_live_test_pack.v1",
+  "profile_state": "controlled_test_only",
+  "sgbd_file": "ms430ds0.prg",
+  "sgbd_sha256": "8C4714D638DE8E9D765A86EEC9746495883366D21126A454AB2EF28279E3A523",
+  "backend_file": "EdiabasLib.dll",
+  "backend_sha256": "A4DA410DA21D4F1623593EC01D7153FD47306B0C9B59B8FBA3A51F36EC2B3D59",
+  "port": "COM5",
+  "argument_policy": "exact_empty_string_only",
+  "unknown_dispatch_policy": "reject",
+  "entries": [
+    {
+      "job": "STATUS_MOTORDREHZAHL",
+      "argument": "",
+      "result_names": [
+        "JOB_STATUS",
+        "STAT_MOTORDREHZAHL_WERT",
+        "STATUS_MOTORDREHZAHL_WERT",
+        "STAT_MOTORDREHZAHL_EINH"
+      ],
+      "review_state": "validated",
+      "tier": 0
+    },
+    {
+      "job": "STATUS_MESSWERTEBLOCK",
+      "argument": "",
+      "result_names": [
+        "JOB_STATUS",
+        "STAT_MOTORDREHZAHL_MWB_WERT",
+        "STAT_MOTORDREHZAHL_MWB_EINH",
+        "STAT_GESCHWINDIGKEIT_MWB_WERT",
+        "STAT_GESCHWINDIGKEIT_MWB_EINH",
+        "STAT_PWG_WINKEL_MWB_WERT",
+        "STAT_PWG_WINKEL_MWB_EINH",
+        "STAT_DKP_WINKEL_MWB_WERT",
+        "STAT_DKP_WINKEL_MWB_EINH",
+        "STAT_LMM_MASSE_MWB_WERT",
+        "STAT_LMM_MASSE_MWB_EINH",
+        "STAT_AN_LUFTTEMP_MWB_WERT",
+        "STAT_AN_LUFTTEMP_MWB_EINH",
+        "STAT_MOTORTEMP_MWB_WERT",
+        "STAT_MOTORTEMP_MWB_EINH",
+        "STAT_OEL_TEMP_MWB_WERT",
+        "STAT_OEL_TEMP_MWB_EINH",
+        "STAT_KUEHLW_AUSL_TEMP_MWB_WERT",
+        "STAT_KUEHLW_AUSL_TEMP_MWB_EINH",
+        "STAT_ZUENDWINKEL_MWB_WERT",
+        "STAT_ZUENDWINKEL_MWB_EINH",
+        "STAT_EINSPRITZZEIT_MWB_WERT",
+        "STAT_EINSPRITZZEIT_MWB_EINH",
+        "STAT_LL_INTEGRATOR_MWB_WERT",
+        "STAT_LL_INTEGRATOR_MWB_EINH",
+        "STAT_LL_STELLER_TV_MWB_WERT",
+        "STAT_LL_STELLER_TV_MWB_EINH",
+        "STAT_VANOS_NW_LAGE_EINLASS_MWB_WERT",
+        "STAT_VANOS_NW_LAGE_EINLASS_MWB_EINH",
+        "STAT_VANOS_NW_LAGE_AUSLASS_MWB_WERT",
+        "STAT_VANOS_NW_LAGE_AUSLASS_MWB_EINH",
+        "STAT_KL15_MWB_WERT",
+        "STAT_KL15_MWB_EINH",
+        "STAT_LAMBDA_INTEGRATOR_1_MWB_WERT",
+        "STAT_LAMBDA_INTEGRATOR_1_MWB_EINH",
+        "STAT_LAMBDA_INTEGRATOR_2_MWB_WERT",
+        "STAT_LAMBDA_INTEGRATOR_2_MWB_EINH",
+        "STAT_LS_VKAT_HEIZUNG_TV_1_MWB_WERT",
+        "STAT_LS_VKAT_HEIZUNG_TV_1_MWB_EINH",
+        "STAT_LS_VKAT_HEIZUNG_TV_2_MWB_WERT",
+        "STAT_LS_VKAT_HEIZUNG_TV_2_MWB_EINH",
+        "STAT_LS_NKAT_HEIZUNG_TV_1_MWB_WERT",
+        "STAT_LS_NKAT_HEIZUNG_TV_1_MWB_EINH",
+        "STAT_LS_NKAT_HEIZUNG_TV_2_MWB_WERT",
+        "STAT_LS_NKAT_HEIZUNG_TV_2_MWB_EINH",
+        "STAT_LAST_MWB_WERT",
+        "STAT_LAST_MWB_EINH",
+        "STAT_K_MW_2_MWB_WERT",
+        "STAT_K_MW_2_MWB_EINH",
+        "STAT_K_MW_5_MWB_WERT",
+        "STAT_K_MW_5_MWB_EINH",
+        "STAT_DREHZAHL_E_LUEFTER_VON_AC_MWB_WERT",
+        "STAT_DREHZAHL_E_LUEFTER_VON_AC_MWB_EINH",
+        "STAT_LUFTDRUCK_MWB_WERT",
+        "STAT_LUFTDRUCK_MWB_EINH",
+        "STAT_UBATT_MWB_WERT",
+        "STAT_UBATT_MWB_EINH"
+      ],
+      "review_state": "approved_for_bounded_live_test",
+      "tier": 1
+    },
+    {
+      "job": "STATUS_DIGITAL",
+      "argument": "",
+      "result_names": [
+        "JOB_STATUS",
+        "STAT_KO_EIN",
+        "STATUS_KO_EIN",
+        "STAT_AC_EIN",
+        "STATUS_AC_EIN",
+        "STAT_FGR_EIN",
+        "STAT_KUP_EIN",
+        "STAT_BLS_EIN",
+        "STAT_BLTS_EIN",
+        "STAT_LL_EIN",
+        "STATUS_LL_EIN",
+        "STAT_TL_EIN",
+        "STATUS_TL_EIN",
+        "STAT_VL_EIN",
+        "STATUS_VL_EIN",
+        "STAT_LAMBDAREGELUNG_EIN",
+        "STAT_LAMBDAREGELUNG_2_EIN",
+        "STAT_SCHUBAB_EIN",
+        "STAT_SCHUB_EIN",
+        "STAT_START_EIN",
+        "STAT_FAHRSTUFE_EIN",
+        "STAT_EGS_EINGRIFF_EIN",
+        "STAT_CAN_EIN",
+        "STAT_SLV_EIN",
+        "STAT_SLP_EIN",
+        "STAT_A_KLAPPE_EIN",
+        "STAT_DMTL_ANSTEUERUNG_EIN",
+        "STAT_KO_ANSTEUERUNG_EIN",
+        "STAT_EKP_ANSTEUERUNG_EIN",
+        "STAT_KATHEIZEN_EIN",
+        "STAT_DMTL_EIN",
+        "STAT_FEHLERLAMPE_EML_EIN",
+        "STAT_FEHLERLAMPE_EIN",
+        "STAT_TEV_EIN",
+        "STAT_DISA_ANSTEUERUNG_EIN",
+        "STAT_ASC_EINGRIFF_EIN",
+        "STAT_TMOT_STAT_EIN",
+        "STAT_TEMPOMAT_RUHE_EIN",
+        "STAT_TEMPOMAT_VERZ_EIN",
+        "STAT_TEMPOMAT_WIEDERAUF_EIN",
+        "STAT_TEMPOMAT_BESCHL_EIN",
+        "STAT_TEMPOMAT_TIPDOWN_EIN",
+        "STAT_TEMPOMAT_TIPUP_EIN",
+        "STAT_TEMPOMAT_AUS_EIN",
+        "STAT_TEMPOMAT_HARTAUS_EIN",
+        "STAT_VANOS_AKTIV_EIN",
+        "STAT_VANOS_BEREIT_EIN",
+        "STAT_VANOS_PASSIV_EIN",
+        "STAT_GEBERRADADAPT_OK_EIN",
+        "STAT_LAMBDASONDENHEIZUNG_NK_EIN",
+        "STAT_LAMBDASONDENHEIZUNG_NK_2_EIN",
+        "STAT_LAMBDASONDENHEIZUNG_VK_EIN",
+        "STAT_LAMBDASONDENHEIZUNG_VK_2_EIN"
+      ],
+      "review_state": "approved_for_bounded_live_test",
+      "tier": 1
+    },
+    {
+      "job": "STATUS_LAMBDA_ADD_1",
+      "argument": "",
+      "result_names": [
+        "JOB_STATUS",
+        "STAT_LAMBDA_ADD_1_WERT",
+        "STAT_LAMBDA_ADD_1_EINH"
+      ],
+      "review_state": "approved_for_bounded_live_test",
+      "tier": 1
+    },
+    {
+      "job": "STATUS_LAMBDA_ADD_2",
+      "argument": "",
+      "result_names": [
+        "JOB_STATUS",
+        "STAT_LAMBDA_ADD_2_WERT",
+        "STAT_LAMBDA_ADD_2_EINH"
+      ],
+      "review_state": "approved_for_bounded_live_test",
+      "tier": 1
+    },
+    {
+      "job": "STATUS_LAMBDA_MUL_1",
+      "argument": "",
+      "result_names": [
+        "JOB_STATUS",
+        "STAT_LAMBDA_MUL_1_WERT",
+        "STAT_LAMBDA_MUL_1_EINH"
+      ],
+      "review_state": "approved_for_bounded_live_test",
+      "tier": 1
+    },
+    {
+      "job": "STATUS_LAMBDA_MUL_2",
+      "argument": "",
+      "result_names": [
+        "JOB_STATUS",
+        "STAT_LAMBDA_MUL_2_WERT",
+        "STAT_LAMBDA_MUL_2_EINH"
+      ],
+      "review_state": "approved_for_bounded_live_test",
+      "tier": 1
+    },
+    {
+      "job": "STATUS_VANOS_NW_LAGE_IST_SOLL_REF_EINLASS",
+      "argument": "",
+      "result_names": [
+        "JOB_STATUS",
+        "STAT_VANOS_NW_LAGE_EINLASS_IST_WERT",
+        "STAT_VANOS_NW_LAGE_EINLASS_SOLL_WERT",
+        "STAT_VANOS_NW_LAGE_EINLASS_REF_WERT",
+        "STAT_VANOS_NW_LAGE_IST_SOLL_REF_EINLASS_EINH"
+      ],
+      "review_state": "approved_for_bounded_live_test",
+      "tier": 1
+    },
+    {
+      "job": "STATUS_VANOS_NW_LAGE_IST_SOLL_REF_AUSLASS",
+      "argument": "",
+      "result_names": [
+        "JOB_STATUS",
+        "STAT_VANOS_NW_LAGE_AUSLASS_IST_WERT",
+        "STAT_VANOS_NW_LAGE_AUSLASS_SOLL_WERT",
+        "STAT_VANOS_NW_LAGE_AUSLASS_REF_WERT",
+        "STAT_VANOS_NW_LAGE_IST_SOLL_REF_AUSLASS_EINH"
+      ],
+      "review_state": "approved_for_bounded_live_test",
+      "tier": 1
+    },
+    {
+      "job": "STATUS_LS_VKAT_SIGNAL_1",
+      "argument": "",
+      "result_names": [
+        "JOB_STATUS",
+        "STAT_LS_VKAT_SIGNAL_1_WERT",
+        "STAT_LS_VKAT_SIGNAL_1_EINH"
+      ],
+      "review_state": "approved_for_bounded_live_test",
+      "tier": 1
+    },
+    {
+      "job": "STATUS_LS_VKAT_SIGNAL_2",
+      "argument": "",
+      "result_names": [
+        "JOB_STATUS",
+        "STAT_LS_VKAT_SIGNAL_2_WERT",
+        "STAT_LS_VKAT_SIGNAL_2_EINH"
+      ],
+      "review_state": "approved_for_bounded_live_test",
+      "tier": 1
+    },
+    {
+      "job": "STATUS_LS_NKAT_SIGNAL_1",
+      "argument": "",
+      "result_names": [
+        "JOB_STATUS",
+        "STAT_LS_NKAT_SIGNAL_1_WERT",
+        "STAT_LS_NKAT_SIGNAL_1_EINH"
+      ],
+      "review_state": "approved_for_bounded_live_test",
+      "tier": 1
+    },
+    {
+      "job": "STATUS_LS_NKAT_SIGNAL_2",
+      "argument": "",
+      "result_names": [
+        "JOB_STATUS",
+        "STAT_LS_NKAT_SIGNAL_2_WERT",
+        "STAT_LS_NKAT_SIGNAL_2_EINH"
+      ],
+      "review_state": "approved_for_bounded_live_test",
+      "tier": 1
+    }
+  ]
+}

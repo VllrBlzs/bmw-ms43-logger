@@ -1,0 +1,2314 @@
+{
+  "schema_version": "bmw03.review.v1",
+  "source_inventory_sha256": "005F5479F2A303EF8E446CB0F38F63F91C47376C97513FE17831473BF5B46AB6",
+  "sgbd_sha256": "8C4714D638DE8E9D765A86EEC9746495883366D21126A454AB2EF28279E3A523",
+  "backend_sha256": "A4DA410DA21D4F1623593EC01D7153FD47306B0C9B59B8FBA3A51F36EC2B3D59",
+  "communication_attempted": false,
+  "counts": {
+    "approved": 1,
+    "conditional": 85,
+    "excluded": 144
+  },
+  "jobs": [
+    {
+      "job": "ABGAS_VARIANTE_LESEN",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 7,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "ABSCHALTBEDINGUNG_FGR_LOESCHEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "ADAPT_DROSSELKLAPPE_LOESCHEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "ADAPT_KLOPFREGELUNG_LOESCHEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "ADAPT_LAMBDA_LOESCHEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "ADAPT_LAUFUNRUHE_LOESCHEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "ADAPT_LEERLAUF_LOESCHEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "ADAPT_LM_SENSOR_LOESCHEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "ADAPT_LOESCHEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "ADAPT_SCHLIESSZEIT_LOESCHEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "ADAPT_VARIANTEN_LOESCHEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "AIF_LESEN",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 11,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "CO_ABGLEICH_LESEN",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "CO_ABGLEICH_PROGRAMMIEREN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "CO_ABGLEICH_VERSTELLEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "DIAGNOSE_AUFRECHT",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "DIAGNOSE_ENDE",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "DIAGNOSE_STOP",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "ECU_CONFIG",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 17,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "FS_LESEN",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 48,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "FS_LOESCHEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "FS_QUICK_LESEN",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "FS_SELEKTIV_LOESCHEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 10,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "FS_SHADOW_LESEN",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 42,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "FUSSHEBELFEHLBEDIENUNG_LOESCHEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "IDENT",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 20,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "IDENT_AIF",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 22,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "INFO",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 7,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "INITIALISIERUNG",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 0,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "KW_GEBER_FEHLER_LESEN",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 14,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "KW_GEBER_FEHLER_RUECKSETZEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "LESEN_SYSTEMCHECK_DMTL",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "LESEN_SYSTEMCHECK_LAUFUNRUHE",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 7,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "LESEN_SYSTEMCHECK_SEK_LUFT",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "LESEN_SYSTEMCHECK_TANK_LECK",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 6,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "LESEN_SYSTEMCHECK_TEV_FUNC",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "LL_ABGLEICH_LESEN",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "LL_ABGLEICH_PROGRAMMIEREN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "LL_ABGLEICH_VERSTELLEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "MEHRFACHSTARTWERTABGLEICH",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "PRUEFCODE_LESEN",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "PRUEFSTEMPEL_LESEN",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "PRUEFSTEMPEL_SCHREIBEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 3,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "SEED_KEY",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "SPEICHER_LIN_LESEN",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 2,
+      "result_count": 2,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "START_SYSTEMCHECK_DMTL",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "START_SYSTEMCHECK_DMTL_ECOS",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "START_SYSTEMCHECK_LAUFUNRUHE",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "START_SYSTEMCHECK_SEK_LUFT",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "START_SYSTEMCHECK_SONDENHEIZUNG",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "START_SYSTEMCHECK_TANK_LECK",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "START_SYSTEMCHECK_TEV_FUNC",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "START_SYSTEMCHECK_VERTAUSCHT_LAMBDASONDEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_ADAP_AKTIV",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_ADD",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_ADD_2",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_AN_LUFTTEMPERATUR",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_AN_LUFTTEMPERATUR_ADC",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_AN_LUFTTEMPERATUR_MWB",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_CODIER_CHECKSUMME",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_DATENSATZ",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_DIAGNOSEWERTE_KAT_LS_SEK",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 12,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_DICHTHEIT_MESS_VANOS_A",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_DICHTHEIT_MESS_VANOS_E",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_DIGITAL",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 1,
+      "argument_count": 0,
+      "result_count": 53,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_DIGITAL_OBDII",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 19,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_DK1_WINKEL",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_DK2_WINKEL",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_DKP_WINKEL",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_DK_ADAP_BEDARF",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_DK_ADAP_LIH",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_DK_ADAP_UMA_EL",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_DK_ADAP_UMA_MECH",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_DMTL_EOL",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_DREHZAHL_E_LUEFTER_VON_AC",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_EINSPRITZZEIT",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_FEINLECKMESSUNG_DMTL",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_FGR_ABSCHALTUNG",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 27,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_FREIGABEZAEHLER_DMTL",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_FUSSHEBELFEHLBETAETIGUNG",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_GEBERRAD_ADAPTION",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_GESCHWINDIGKEIT",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_GROBLECKMESSUNG_DMTL",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_INT",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_INT_2",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_KL15",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_KLOPF_ADC1",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_KLOPF_ADC2",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_KM_MIL",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_KR",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_KUEHLW_AUSL_TEMPERATUR",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_KUEHLW_AUSL_TEMPERATUR_ADC",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_KUEHLW_AUSL_TEMPERATUR_MWB",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_K_MW_2",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_K_MW_5",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LAMBDA_ADD_1",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 1,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_LAMBDA_ADD_2",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 1,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_LAMBDA_INTEGRATOR_1",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LAMBDA_INTEGRATOR_2",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LAMBDA_MUL_1",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 1,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_LAMBDA_MUL_2",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 1,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_LAST",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LL_ADAPTION",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_LL_FS_ADAPTION",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_LL_INTEGRATOR",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LL_KK_ADAPTION",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_LL_LUFTBEDARF",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LL_STELLER_TV",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LMM",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LMM_MASSE",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LMM_SPANNUNG",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LS_NKAT_HEIZUNG_TV_1",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LS_NKAT_HEIZUNG_TV_2",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LS_NKAT_SIGNAL_1",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 1,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LS_NKAT_SIGNAL_2",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 1,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LS_VKAT_HEIZUNG_TV_1",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LS_VKAT_HEIZUNG_TV_2",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LS_VKAT_SIGNAL_1",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 1,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LS_VKAT_SIGNAL_2",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 1,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_LUFTDRUCK",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_L_SONDE",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_L_SONDE_2",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_L_SONDE_2_H",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_L_SONDE_H",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_MDK_POTI_SPANNUNG",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_MESSWERTEBLOCK",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 1,
+      "argument_count": 0,
+      "result_count": 57,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_MESS_ABBRUCH_DMTL",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_MOTORDREHZAHL",
+      "review_status": "approved",
+      "review_group": "validated_live_read",
+      "reason": "Exact BMW-02C tuple passed the pinned live proof.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "approved"
+    },
+    {
+      "job": "STATUS_MOTORTEMPERATUR",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_MOTORTEMPERATUR_ADC",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_MOTORTEMPERATUR_MWB",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_MUL",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_MUL_2",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_OEL_TEMPERATUR",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_OEL_TEMPERATUR_ADC",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_OEL_TEMPERATUR_MWB",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_PROG_STAT_EWS",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_PWG1_WINKEL",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_PWG2_WINKEL",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_PWG_POTI_SPANNUNG",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 6,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_PWG_WINKEL",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYNC_MODE",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_DK_WINKEL",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_DMTL",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 10,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_DMTL_MOTOR",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_KENNFELDTHERMOSTAT",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 6,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_LAUFUNRUHE",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 14,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_LSH_NKAT_BANK1",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_LSH_NKAT_BANK2",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_LSH_VKAT_BANK1",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_LSH_VKAT_BANK2",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_NWG_IST_AUSLASS",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_NWG_IST_EINLASS",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_SEK_LUFT",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_SEK_LUFT_PUMPE",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_SEK_LUFT_SAF",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 7,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_SEK_LUFT_VENTIL",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_SONDENHEIZUNG",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 12,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_TEV",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_SYSTEMCHECK_VERTAUSCHT_LAMBDASONDEN",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 15,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_UBATT",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_UBATT_ADC",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_VANOS_NW_FLANKENADAPTION",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STATUS_VANOS_NW_LAGE_AUSLASS",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_VANOS_NW_LAGE_EINLASS",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_VANOS_NW_LAGE_IST_SOLL_REF_AUSLASS",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 1,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_VANOS_NW_LAGE_IST_SOLL_REF_EINLASS",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 1,
+      "argument_count": 0,
+      "result_count": 5,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_VANOS_NW_ROHWERT",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 4,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_VERSTELLZEIT_MESS_VANOS_A",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 6,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_VERSTELLZEIT_MESS_VANOS_E",
+      "review_status": "excluded",
+      "review_group": "active_test_dependent_read",
+      "reason": "Read result depends on an active/system-check workflow that v1 will not initiate.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 6,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_ZSI",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STATUS_ZUENDWINKEL",
+      "review_status": "conditional",
+      "review_group": "offline_reviewed_live_candidate",
+      "reason": "No arguments; STATUS metadata exposes typed value results. Bounded live proof is still required.",
+      "car_test_tier": 2,
+      "argument_count": 0,
+      "result_count": 3,
+      "source_inventory_status": "conditional"
+    },
+    {
+      "job": "STEUERN_ABGASKLAPPE",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_DISA",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_DK_WINKEL",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_DMTL_HEIZUNG",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_DMTL_MOTOR",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_DMTL_TEV",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_DMTL_VENTIL",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EKP",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_1",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_1_ARG",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 2,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_1_AUS",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_2",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_2_ARG",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 2,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_2_AUS",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_3",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_3_ARG",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 2,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_3_AUS",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_4",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_4_ARG",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 2,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_4_AUS",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_5",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_5_ARG",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 2,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_5_AUS",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_6",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_6_ARG",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 2,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_6_AUS",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_EV_SELEKTIV_AUSBLENDEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_E_LUEFTER",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_E_LUEFTER_ECOS",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_KF_THERMOSTAT",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_KO",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_LL_DREHZAHL_VERSTELLEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_LL_MANIPULATION",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_LL_STELLER",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_LS_HEIZUNG_NKAT_BANK1",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_LS_HEIZUNG_NKAT_BANK2",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_LS_HEIZUNG_VKAT_BANK1",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_LS_HEIZUNG_VKAT_BANK2",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_MIL",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_SEK_PUMPE",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_SEK_VENTIL",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_SYNC_MODE",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 3,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_TEMP_ANZEIGE_KOMBI",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 2,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_TEV",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_VANOS_A_DICHTHEIT",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 2,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_VANOS_A_SOLLWERT",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_VANOS_A_VENTIL",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_VANOS_A_VERSTELLZEIT",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 2,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_VANOS_E_DICHTHEIT",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 2,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_VANOS_E_SOLLWERT",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_VANOS_E_VENTIL",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STEUERN_VANOS_E_VERSTELLZEIT",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 2,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "STOP_SYSTEMCHECK_SEK_LUFT",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "TEST_SYSTEMCHECK_DMTL",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "VERBRAUCH_ABGLEICH_LESEN",
+      "review_status": "excluded",
+      "review_group": "non_live_or_raw_diagnostic",
+      "reason": "Read-only or static diagnostic data, but not a normal live-data channel for v1.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "VERBRAUCH_ABGLEICH_PROGRAMMIEREN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 2,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "VERBRAUCH_ABGLEICH_VERSTELLEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 1,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    },
+    {
+      "job": "VERBRAUCH_ABGLEICH_VERWERFEN",
+      "review_status": "excluded",
+      "review_group": "state_changing_or_session_control",
+      "reason": "Write/reset/actuator/active-test/session-control operation is outside the read-only boundary.",
+      "car_test_tier": 0,
+      "argument_count": 0,
+      "result_count": 1,
+      "source_inventory_status": "excluded"
+    }
+  ]
+}
