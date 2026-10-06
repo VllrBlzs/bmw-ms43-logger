@@ -1,0 +1,17 @@
+{
+  "schema_version": "bmw04.catalog_coverage.v1",
+  "sgbd_sha256": "8C4714D638DE8E9D765A86EEC9746495883366D21126A454AB2EF28279E3A523",
+  "backend_sha256": "A4DA410DA21D4F1623593EC01D7153FD47306B0C9B59B8FBA3A51F36EC2B3D59",
+  "reviewed_jobs": 230,
+  "approved_jobs": 1,
+  "conditional_jobs": 85,
+  "excluded_jobs": 144,
+  "typed_raw_result_candidates": 253,
+  "unique_raw_parameter_ids": 253,
+  "core_catalog_entries": 28,
+  "core_source_results": 28,
+  "approved_catalog_entries": 1,
+  "pending_live_validation_catalog_entries": 27,
+  "raw_candidates_pending_alias_dedup_or_scope_review": 225,
+  "interpretation": "The raw count includes aliases, duplicate single-value jobs and non-core status values; it is not a claim of 253 distinct user-facing sensors."
+}

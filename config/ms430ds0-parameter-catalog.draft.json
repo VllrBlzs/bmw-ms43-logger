@@ -1,0 +1,797 @@
+{
+  "schema_version": "bmw04.parameter_catalog.v1",
+  "catalog_version": "0.1.0-draft",
+  "catalog_state": "draft_pending_bounded_live_validation",
+  "sgbd_file": "ms430ds0.prg",
+  "sgbd_sha256": "8C4714D638DE8E9D765A86EEC9746495883366D21126A454AB2EF28279E3A523",
+  "backend_file": "EdiabasLib.dll",
+  "backend_sha256": "A4DA410DA21D4F1623593EC01D7153FD47306B0C9B59B8FBA3A51F36EC2B3D59",
+  "unit_policy": "Runtime metadata is authoritative; pending units are never guessed.",
+  "unknown_parameter_policy": "reject",
+  "entries": [
+    {
+      "parameter_id": "engine.rpm",
+      "internal_name": "EngineRpm",
+      "display_name_hu": "Motorfordulat",
+      "data_type": "real",
+      "unit": {
+        "state": "validated_live",
+        "value": "1/min",
+        "source_result": "STAT_MOTORDREHZAHL_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "validated_live"
+      },
+      "source": {
+        "job": "STATUS_MOTORDREHZAHL",
+        "argument": "",
+        "value_result": "STAT_MOTORDREHZAHL_WERT",
+        "unit_result": "STAT_MOTORDREHZAHL_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "approved",
+      "evidence": "BMW-02C 5-minute live RPM proof",
+      "alternative_source": "STATUS_MESSWERTEBLOCK:STAT_MOTORDREHZAHL_MWB_WERT"
+    },
+    {
+      "parameter_id": "vehicle.speed",
+      "internal_name": "VehicleSpeed",
+      "display_name_hu": "Járműsebesség",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_GESCHWINDIGKEIT_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_GESCHWINDIGKEIT_MWB_WERT",
+        "unit_result": "STAT_GESCHWINDIGKEIT_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "driver.pedal.angle",
+      "internal_name": "DriverPedalAngle",
+      "display_name_hu": "Gázpedál állás",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_PWG_WINKEL_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_PWG_WINKEL_MWB_WERT",
+        "unit_result": "STAT_PWG_WINKEL_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "throttle.angle",
+      "internal_name": "ThrottleAngle",
+      "display_name_hu": "Fojtószelepállás",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_DKP_WINKEL_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_DKP_WINKEL_MWB_WERT",
+        "unit_result": "STAT_DKP_WINKEL_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "intake.air.mass",
+      "internal_name": "IntakeAirMass",
+      "display_name_hu": "Beszívott levegőtömeg",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_LMM_MASSE_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_LMM_MASSE_MWB_WERT",
+        "unit_result": "STAT_LMM_MASSE_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "intake.air.temperature",
+      "internal_name": "IntakeAirTemperature",
+      "display_name_hu": "Szívólevegő-hőmérséklet",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_AN_LUFTTEMP_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_AN_LUFTTEMP_MWB_WERT",
+        "unit_result": "STAT_AN_LUFTTEMP_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "engine.coolant.temperature",
+      "internal_name": "EngineCoolantTemperature",
+      "display_name_hu": "Motor-hűtőfolyadék hőmérséklet",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_MOTORTEMP_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_MOTORTEMP_MWB_WERT",
+        "unit_result": "STAT_MOTORTEMP_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "engine.oil.temperature",
+      "internal_name": "EngineOilTemperature",
+      "display_name_hu": "Motorolaj-hőmérséklet",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_OEL_TEMP_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_OEL_TEMP_MWB_WERT",
+        "unit_result": "STAT_OEL_TEMP_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "coolant.outlet.temperature",
+      "internal_name": "CoolantOutletTemperature",
+      "display_name_hu": "Hűtőfolyadék kilépő hőmérséklet",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_KUEHLW_AUSL_TEMP_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_KUEHLW_AUSL_TEMP_MWB_WERT",
+        "unit_result": "STAT_KUEHLW_AUSL_TEMP_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "ignition.cylinder1.advance",
+      "internal_name": "IgnitionCylinder1Advance",
+      "display_name_hu": "Gyújtásszög, 1. henger",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_ZUENDWINKEL_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_ZUENDWINKEL_MWB_WERT",
+        "unit_result": "STAT_ZUENDWINKEL_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "fuel.injection.time",
+      "internal_name": "FuelInjectionTime",
+      "display_name_hu": "Befecskendezési idő",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_EINSPRITZZEIT_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_EINSPRITZZEIT_MWB_WERT",
+        "unit_result": "STAT_EINSPRITZZEIT_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "idle.integrator",
+      "internal_name": "IdleIntegrator",
+      "display_name_hu": "Alapjárati integrátor",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_LL_INTEGRATOR_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_LL_INTEGRATOR_MWB_WERT",
+        "unit_result": "STAT_LL_INTEGRATOR_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "idle.control.duty",
+      "internal_name": "IdleControlDuty",
+      "display_name_hu": "Alapjárati szabályzó kitöltési tényező",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_LL_STELLER_TV_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_LL_STELLER_TV_MWB_WERT",
+        "unit_result": "STAT_LL_STELLER_TV_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "vanos.intake.actual.angle",
+      "internal_name": "VanosIntakeActualAngle",
+      "display_name_hu": "Szívó VANOS tényleges szög",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_VANOS_NW_LAGE_EINLASS_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_VANOS_NW_LAGE_EINLASS_MWB_WERT",
+        "unit_result": "STAT_VANOS_NW_LAGE_EINLASS_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "vanos.exhaust.actual.angle",
+      "internal_name": "VanosExhaustActualAngle",
+      "display_name_hu": "Kipufogó VANOS tényleges szög",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_VANOS_NW_LAGE_AUSLASS_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_VANOS_NW_LAGE_AUSLASS_MWB_WERT",
+        "unit_result": "STAT_VANOS_NW_LAGE_AUSLASS_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "electrical.terminal15.voltage",
+      "internal_name": "ElectricalTerminal15Voltage",
+      "display_name_hu": "KL15 feszültség",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_KL15_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_KL15_MWB_WERT",
+        "unit_result": "STAT_KL15_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "lambda.bank1.integrator",
+      "internal_name": "LambdaBank1Integrator",
+      "display_name_hu": "Lambda-integrátor, 1. bank",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_LAMBDA_INTEGRATOR_1_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_LAMBDA_INTEGRATOR_1_MWB_WERT",
+        "unit_result": "STAT_LAMBDA_INTEGRATOR_1_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "lambda.bank2.integrator",
+      "internal_name": "LambdaBank2Integrator",
+      "display_name_hu": "Lambda-integrátor, 2. bank",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_LAMBDA_INTEGRATOR_2_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_LAMBDA_INTEGRATOR_2_MWB_WERT",
+        "unit_result": "STAT_LAMBDA_INTEGRATOR_2_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "lambda.precat.bank1.heater.duty",
+      "internal_name": "LambdaPrecatBank1HeaterDuty",
+      "display_name_hu": "Első lambda fűtés, 1. bank",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_LS_VKAT_HEIZUNG_TV_1_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_LS_VKAT_HEIZUNG_TV_1_MWB_WERT",
+        "unit_result": "STAT_LS_VKAT_HEIZUNG_TV_1_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "lambda.precat.bank2.heater.duty",
+      "internal_name": "LambdaPrecatBank2HeaterDuty",
+      "display_name_hu": "Első lambda fűtés, 2. bank",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_LS_VKAT_HEIZUNG_TV_2_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_LS_VKAT_HEIZUNG_TV_2_MWB_WERT",
+        "unit_result": "STAT_LS_VKAT_HEIZUNG_TV_2_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "lambda.postcat.bank1.heater.duty",
+      "internal_name": "LambdaPostcatBank1HeaterDuty",
+      "display_name_hu": "Hátsó lambda fűtés, 1. bank",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_LS_NKAT_HEIZUNG_TV_1_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_LS_NKAT_HEIZUNG_TV_1_MWB_WERT",
+        "unit_result": "STAT_LS_NKAT_HEIZUNG_TV_1_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "lambda.postcat.bank2.heater.duty",
+      "internal_name": "LambdaPostcatBank2HeaterDuty",
+      "display_name_hu": "Hátsó lambda fűtés, 2. bank",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_LS_NKAT_HEIZUNG_TV_2_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_LS_NKAT_HEIZUNG_TV_2_MWB_WERT",
+        "unit_result": "STAT_LS_NKAT_HEIZUNG_TV_2_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "engine.load",
+      "internal_name": "EngineLoad",
+      "display_name_hu": "Motorterhelés",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_LAST_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_LAST_MWB_WERT",
+        "unit_result": "STAT_LAST_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "knock.cylinder2.mean.voltage",
+      "internal_name": "KnockCylinder2MeanVoltage",
+      "display_name_hu": "Kopogásjel átlaga, 2. henger",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_K_MW_2_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_K_MW_2_MWB_WERT",
+        "unit_result": "STAT_K_MW_2_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "knock.cylinder5.mean.voltage",
+      "internal_name": "KnockCylinder5MeanVoltage",
+      "display_name_hu": "Kopogásjel átlaga, 5. henger",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_K_MW_5_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_K_MW_5_MWB_WERT",
+        "unit_result": "STAT_K_MW_5_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "cooling.fan.ac.request.stage",
+      "internal_name": "CoolingFanAcRequestStage",
+      "display_name_hu": "Elektromos ventilátor klímaigény-fokozat",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_DREHZAHL_E_LUEFTER_VON_AC_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_DREHZAHL_E_LUEFTER_VON_AC_MWB_WERT",
+        "unit_result": "STAT_DREHZAHL_E_LUEFTER_VON_AC_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "ambient.pressure",
+      "internal_name": "AmbientPressure",
+      "display_name_hu": "Környezeti légnyomás",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_LUFTDRUCK_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_LUFTDRUCK_MWB_WERT",
+        "unit_result": "STAT_LUFTDRUCK_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    },
+    {
+      "parameter_id": "electrical.battery.voltage",
+      "internal_name": "ElectricalBatteryVoltage",
+      "display_name_hu": "Akkumulátorfeszültség",
+      "data_type": "real",
+      "unit": {
+        "state": "pending_runtime_observation",
+        "value": null,
+        "source_result": "STAT_UBATT_MWB_EINH"
+      },
+      "scaling": {
+        "mode": "ediabas_typed_result",
+        "state": "pending_live_confirmation"
+      },
+      "source": {
+        "job": "STATUS_MESSWERTEBLOCK",
+        "argument": "",
+        "value_result": "STAT_UBATT_MWB_WERT",
+        "unit_result": "STAT_UBATT_MWB_EINH"
+      },
+      "availability": {
+        "profile": "ms430ds0-pinned",
+        "condition": "JOB_STATUS=OKAY and exact result present"
+      },
+      "support_status": "candidate_live_validation",
+      "evidence": "BMW-03 offline metadata review; bounded live proof pending",
+      "alternative_source": null
+    }
+  ]
+}
