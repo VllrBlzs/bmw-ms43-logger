@@ -22,6 +22,7 @@ internal static class Program
         try
         {
             StationaryOptions options = StationaryOptions.Parse(args);
+            StationaryOptions.RunParserSelfTests();
             ControlledProfile profile = ControlledProfile.Load(
                 options.CatalogPath,
                 options.PackPath);
@@ -430,7 +431,7 @@ internal static class Program
         SessionRunResult result)
     {
         AcceptanceReport report = result.Report;
-        Console.WriteLine("BMW-04/05/08 INTEGRATED STATIONARY LOGGER");
+        Console.WriteLine("BMW-04/05/08 INTEGRATED LIVE LOGGER");
         Console.WriteLine($"MODE={options.Mode.ToString().ToUpperInvariant()}");
         Console.WriteLine($"COMMUNICATION_ATTEMPTED={report.CommunicationAttempted}");
         Console.WriteLine($"INTERFACE_INSTANCE={report.InterfaceInstance}");
@@ -587,10 +588,10 @@ internal sealed record StationaryOptions(
                 throw new InvalidOperationException(
                     "Live mode requires --confirm-read-only.");
             }
-            if (vehicleState is not ("engine-off" or "idle"))
+            if (vehicleState is not ("engine-off" or "idle" or "driving"))
             {
                 throw new ArgumentException(
-                    "Live mode requires --vehicle-state engine-off|idle.");
+                    "Live mode requires --vehicle-state engine-off|idle|driving.");
             }
             if (durationSeconds is < 10 or > 1200)
             {
@@ -652,6 +653,53 @@ internal sealed record StationaryOptions(
             Path.GetFullPath(Path.Combine(
                 "config",
                 "ms430ds0-bounded-live-test-pack.json")));
+    }
+
+    public static void RunParserSelfTests()
+    {
+        StationaryOptions driving = Parse(
+        [
+            "--live",
+            "--confirm-read-only",
+            "--selection", "all28",
+            "--vehicle-state", "driving",
+            "--duration-seconds", "10",
+            "--requested-hz", "5.0",
+            "--output-dir", Path.Combine("artifacts", "bmw08-parser-self-test")
+        ]);
+
+        if (driving.Mode != StationaryMode.Live ||
+            driving.VehicleState != "driving" ||
+            driving.Selection != "all28" ||
+            driving.DurationSeconds != 10)
+        {
+            throw new InvalidOperationException(
+                "Driving-mode parser self-test failed.");
+        }
+
+        ExpectRejected(() => Parse(
+        [
+            "--live",
+            "--confirm-read-only",
+            "--selection", "all28",
+            "--vehicle-state", "moving",
+            "--duration-seconds", "10"
+        ]));
+    }
+
+    private static void ExpectRejected(Action action)
+    {
+        try
+        {
+            action();
+        }
+        catch
+        {
+            return;
+        }
+
+        throw new InvalidOperationException(
+            "Invalid vehicle state was unexpectedly accepted.");
     }
 }
 

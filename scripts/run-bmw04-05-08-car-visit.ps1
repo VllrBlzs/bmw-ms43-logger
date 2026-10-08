@@ -7,11 +7,14 @@ param(
         "IdleCatalog",
         "IdleBenchmark",
         "StationaryAcceptance",
+        "DrivingCycle",
         "DisconnectProof"
     )]
     [string]$Phase,
 
-    [switch]$ConfirmReadOnly
+    [switch]$ConfirmReadOnly,
+
+    [switch]$ConfirmPassengerOperator
 )
 
 $ErrorActionPreference = "Stop"
@@ -29,6 +32,7 @@ $ediabasProject = Join-Path $repoRoot `
     "third_party\ediabaslib\EdiabasLib\EdiabasLib\EdiabasLib.csproj"
 $catalogTest = Join-Path $repoRoot "scripts\test-bmw04-catalog.ps1"
 $liveOutput = Join-Path $repoRoot "data\private\bmw08-live"
+$drivingOutput = Join-Path $repoRoot "data\private\bmw08-driving"
 $boundedOutput = Join-Path $repoRoot "data\private\bmw03-live"
 $dryOutput = Join-Path $repoRoot "artifacts\bmw08"
 
@@ -64,7 +68,10 @@ function Test-StationaryArtifacts {
         [ValidateSet("completed", "faulted")]
         [string]$ExpectedStatus,
 
-        [string[]]$ExpectedFaultCodes = @()
+        [string[]]$ExpectedFaultCodes = @(),
+
+        [ValidateSet("engine-off", "idle", "driving")]
+        [string]$ExpectedVehicleState
     )
 
     $csvPath = Join-Path $RunDirectory.FullName "session.csv"
@@ -114,6 +121,10 @@ function Test-StationaryArtifacts {
     }
     if (-not [bool]$report.com_closed) {
         throw "The EDIABAS interface was not reported closed."
+    }
+    if (-not [string]::IsNullOrEmpty($ExpectedVehicleState) -and
+        [string]$report.vehicle_state -ne $ExpectedVehicleState) {
+        throw "Unexpected vehicle state: $($report.vehicle_state)"
     }
 
     $actualHash = (Get-FileHash -LiteralPath $csvPath -Algorithm SHA256).Hash
@@ -302,6 +313,12 @@ function Assert-LivePrerequisites {
     if (-not $ConfirmReadOnly) {
         throw "Live phases require -ConfirmReadOnly."
     }
+    if ($Phase -eq "DrivingCycle" -and -not $ConfirmPassengerOperator) {
+        throw "DrivingCycle requires -ConfirmPassengerOperator."
+    }
+    if ($Phase -ne "DrivingCycle" -and $ConfirmPassengerOperator) {
+        throw "-ConfirmPassengerOperator is valid only for DrivingCycle."
+    }
     if (-not (Test-Path -LiteralPath $stationaryProject -PathType Leaf) -or
         -not (Test-Path -LiteralPath $boundedProject -PathType Leaf)) {
         throw "Missing project file. Complete the Offline phase first."
@@ -328,9 +345,13 @@ function Assert-LivePrerequisites {
         Select-Object -First 1
     if ($null -ne $battery) {
         Write-Host "BATTERY_PERCENT=$($battery.EstimatedChargeRemaining)"
+        if ($Phase -eq "DrivingCycle" -and
+            [int]$battery.EstimatedChargeRemaining -lt 50) {
+            throw "DrivingCycle requires at least 50% reported laptop battery."
+        }
         if ([int]$battery.EstimatedChargeRemaining -lt 70) {
             Write-Warning `
-                "Battery is below 70%. The full live plan needs about 25-30 minutes."
+                "Battery is below 70%. The full live plan needs about 30-35 minutes."
         }
     }
 
@@ -471,11 +492,56 @@ function Invoke-OfflinePhase {
         -FailureMessage "Full solution build failed." |
         Out-Null
 
-    # Final BMW-08 Release rebuild and hash-pinned preflights.
-    Invoke-Native -FilePath "dotnet" -NativeArguments @("build", $stationaryProject, "-c", "Release", "--no-incremental") -FailureMessage "Final BMW-08 Release rebuild failed." | Out-Null
-    Invoke-Native -FilePath "dotnet" -NativeArguments @("build", $boundedProject, "-c", "Release", "--no-incremental") -FailureMessage "Final BMW-03/04 Release rebuild failed." | Out-Null
-    Invoke-Native -FilePath "dotnet" -NativeArguments @("run", "--project", $boundedProject, "-c", "Release", "--no-build", "--", "--preflight") -FailureMessage "Final BMW-03/04 hash preflight failed." | Out-Null
-    Invoke-Native -FilePath "dotnet" -NativeArguments @("run", "--project", $stationaryProject, "-c", "Release", "--no-build", "--", "--preflight", "--ecu-path", "C:\EDIABAS\ECU", "--port", "COM5") -FailureMessage "Final BMW-08 hash preflight failed." | Out-Null
+    # A solution build can select the vendored dependency's Debug output through
+    # another project-reference path. Rebuild both live tools directly in Release,
+    # then re-run their hash-pinned preflights so the car-ready binaries are final.
+    Invoke-Native `
+        -FilePath "dotnet" `
+        -NativeArguments @(
+            "build", $stationaryProject,
+            "-c", "Release",
+            "--no-incremental"
+        ) `
+        -FailureMessage "Final BMW-08 Release rebuild failed." |
+        Out-Null
+
+    Invoke-Native `
+        -FilePath "dotnet" `
+        -NativeArguments @(
+            "build", $boundedProject,
+            "-c", "Release",
+            "--no-incremental"
+        ) `
+        -FailureMessage "Final BMW-03/04 Release rebuild failed." |
+        Out-Null
+
+    Invoke-Native `
+        -FilePath "dotnet" `
+        -NativeArguments @(
+            "run",
+            "--project", $boundedProject,
+            "-c", "Release",
+            "--no-build",
+            "--",
+            "--preflight"
+        ) `
+        -FailureMessage "Final BMW-03/04 hash preflight failed." |
+        Out-Null
+
+    Invoke-Native `
+        -FilePath "dotnet" `
+        -NativeArguments @(
+            "run",
+            "--project", $stationaryProject,
+            "-c", "Release",
+            "--no-build",
+            "--",
+            "--preflight",
+            "--ecu-path", "C:\EDIABAS\ECU",
+            "--port", "COM5"
+        ) `
+        -FailureMessage "Final BMW-08 hash preflight failed." |
+        Out-Null
 
     Write-Host "BMW-08 OFFLINE PREPARATION"
     Write-Host "COMMUNICATION_ATTEMPTED=False"
@@ -556,13 +622,32 @@ switch ($Phase) {
         $longRun = Invoke-Stationary `
             -Mode "live" `
             -Selection "all28" `
-            -DurationSeconds 900 `
+            -DurationSeconds 120 `
             -VehicleState "idle" `
             -OutputDirectory $liveOutput
         Test-StationaryArtifacts `
             -RunDirectory $longRun `
-            -ExpectedStatus "completed"
+            -ExpectedStatus "completed" `
+            -ExpectedVehicleState "idle"
         Test-All28CatalogObservation -RunDirectory $longRun
+    }
+    "DrivingCycle" {
+        Write-Host "STATE_REQUIRED=PASSENGER_CONTROLLED_ROAD_DRIVE"
+        Write-Host "PASSENGER_OPERATOR_REQUIRED=True"
+        Write-Host "ACTION=Start the test while safely stopped."
+        Write-Host "ACTION=The passenger operates the laptop; the driver must not interact with it."
+        Write-Host "ACTION=Use normal legal driving only; no forced high-load manoeuvres."
+        $run = Invoke-Stationary `
+            -Mode "live" `
+            -Selection "all28" `
+            -DurationSeconds 900 `
+            -VehicleState "driving" `
+            -OutputDirectory $drivingOutput
+        Test-StationaryArtifacts `
+            -RunDirectory $run `
+            -ExpectedStatus "completed" `
+            -ExpectedVehicleState "driving"
+        Test-All28CatalogObservation -RunDirectory $run
     }
     "DisconnectProof" {
         Write-Host "STATE_REQUIRED=ENGINE_IDLING_STABLE"
