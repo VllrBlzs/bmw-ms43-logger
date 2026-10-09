@@ -33,35 +33,6 @@ public sealed class SimulatedLoggerRuntime : IAsyncDisposable
     private const string CatalogSha256 =
         "5ABF17EE1730546CE2FE4A4D950650E76B4EB7005AAF830068A413CF4903693C";
 
-    private static readonly ParameterId[] ApprovedParameters =
-    [
-        new("engine.rpm"),
-        new("vehicle.speed"),
-        new("driver.pedal.angle"),
-        new("throttle.angle"),
-        new("intake.air.mass"),
-        new("intake.air.temperature"),
-        new("engine.coolant.temperature"),
-        new("engine.oil.temperature"),
-        new("fuel.injection.time"),
-        new("idle.control.duty"),
-        new("electrical.terminal15.voltage"),
-        new("lambda.bank1.integrator"),
-        new("lambda.bank2.integrator"),
-        new("lambda.precat.bank1.heater.duty"),
-        new("lambda.precat.bank2.heater.duty"),
-        new("lambda.postcat.bank1.heater.duty"),
-        new("lambda.postcat.bank2.heater.duty"),
-        new("engine.load"),
-        new("knock.cylinder2.mean.voltage"),
-        new("knock.cylinder5.mean.voltage"),
-        new("ambient.pressure"),
-        new("electrical.battery.voltage")
-    ];
-
-    private static readonly IReadOnlyList<ParameterId> ReadOnlyParameters =
-        Array.AsReadOnly(ApprovedParameters);
-
     private readonly SemaphoreSlim _lifecycle = new(1, 1);
     private CancellationTokenSource? _runCancellation;
     private Task<SimulatedLoggerSessionResult>? _runTask;
@@ -71,7 +42,8 @@ public sealed class SimulatedLoggerRuntime : IAsyncDisposable
     public event SimulatedLoggerProgressEventHandler? ProgressChanged;
     public event SimulatedLoggerFaultEventHandler? Faulted;
 
-    public static IReadOnlyList<ParameterId> Parameters => ReadOnlyParameters;
+    public static IReadOnlyList<ParameterId> Parameters =>
+        Ms43ParameterCatalog.ApprovedParameters;
 
     public bool IsConnected => _connected;
     public bool IsRunning => _runTask is not null;
@@ -98,6 +70,18 @@ public sealed class SimulatedLoggerRuntime : IAsyncDisposable
     public async Task<string> StartAsync(
         string outputDirectory,
         double requestedHz,
+        CancellationToken cancellationToken = default) =>
+        await StartAsync(
+                outputDirectory,
+                requestedHz,
+                Parameters,
+                cancellationToken)
+            .ConfigureAwait(false);
+
+    public async Task<string> StartAsync(
+        string outputDirectory,
+        double requestedHz,
+        IEnumerable<ParameterId> selectedParameters,
         CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(outputDirectory);
@@ -107,6 +91,9 @@ public sealed class SimulatedLoggerRuntime : IAsyncDisposable
                 nameof(requestedHz),
                 "Requested Hz is bounded to 0.2-5.0.");
         }
+        ParameterId[] selection = Ms43ParameterCatalog
+            .ValidateSessionSelection(selectedParameters)
+            .ToArray();
 
         var started = new TaskCompletionSource<string>(
             TaskCreationOptions.RunContinuationsAsynchronously);
@@ -127,6 +114,7 @@ public sealed class SimulatedLoggerRuntime : IAsyncDisposable
             _runTask = RunSessionAsync(
                 Path.GetFullPath(outputDirectory),
                 requestedHz,
+                selection,
                 started,
                 _runCancellation.Token);
         }
@@ -230,6 +218,7 @@ public sealed class SimulatedLoggerRuntime : IAsyncDisposable
     private async Task<SimulatedLoggerSessionResult> RunSessionAsync(
         string outputRoot,
         double requestedHz,
+        IReadOnlyList<ParameterId> selectedParameters,
         TaskCompletionSource<string> started,
         CancellationToken cancellationToken)
     {
@@ -237,20 +226,20 @@ public sealed class SimulatedLoggerRuntime : IAsyncDisposable
         long startedTicks = Stopwatch.GetTimestamp();
         string runDirectory = Path.Combine(
             outputRoot,
-            "bmw09_simulated_" +
+            "bmw10_simulated_" +
             startedAtUtc.UtcDateTime.ToString("yyyyMMdd_HHmmss_fff", CultureInfo.InvariantCulture) +
             "_" + Guid.NewGuid().ToString("N")[..6]);
-        string sessionId = "bmw09.simulated." +
+        string sessionId = "bmw10.simulated." +
             startedAtUtc.UtcDateTime.ToString("yyyyMMdd_HHmmss", CultureInfo.InvariantCulture);
         var descriptor = new SessionLogDescriptor(
             sessionId,
             "bmw.e39.525i.m54b25.ms43.ms430ds0.simulated",
             SgbdSha256,
             BackendSha256,
-            "0.1.0-draft-bmw04b-observed22",
+            "0.2.0-bmw10-observed22-selection",
             CatalogSha256,
             requestedHz,
-            ApprovedParameters);
+            selectedParameters);
         long cycles = 0;
         Guid epoch = Guid.NewGuid();
         SessionCsvLogger? logger = null;
@@ -275,7 +264,8 @@ public sealed class SimulatedLoggerRuntime : IAsyncDisposable
                     epoch,
                     cycles,
                     completedAtUtc,
-                    completedTicks);
+                    completedTicks,
+                    selectedParameters);
                 logger.AppendCycle(cycle);
                 RaiseProgress(cycles, completedAtUtc, cycle);
                 await Task.Delay(period, cancellationToken).ConfigureAwait(false);
@@ -351,12 +341,13 @@ public sealed class SimulatedLoggerRuntime : IAsyncDisposable
         Guid epoch,
         long cycleId,
         DateTimeOffset completedAtUtc,
-        long completedTicks)
+        long completedTicks,
+        IReadOnlyList<ParameterId> selectedParameters)
     {
-        var samples = new NormalizedSample[ApprovedParameters.Length];
-        for (int index = 0; index < ApprovedParameters.Length; index++)
+        var samples = new NormalizedSample[selectedParameters.Count];
+        for (int index = 0; index < selectedParameters.Count; index++)
         {
-            ParameterId id = ApprovedParameters[index];
+            ParameterId id = selectedParameters[index];
             bool rpm = id.Value == "engine.rpm";
             double ageMs = rpm ? 45.0 : 4.0;
             long ageTicks = TicksFromMilliseconds(ageMs);
@@ -443,15 +434,7 @@ public sealed class SimulatedLoggerRuntime : IAsyncDisposable
         DateTimeOffset observedAtUtc,
         NormalizedCycle cycle)
     {
-        string[] visible =
-        [
-            "engine.rpm",
-            "vehicle.speed",
-            "engine.coolant.temperature",
-            "electrical.battery.voltage"
-        ];
         var latest = cycle.Samples
-            .Where(sample => visible.Contains(sample.ParameterId.Value, StringComparer.Ordinal))
             .ToDictionary(
                 sample => sample.ParameterId.Value,
                 sample => Convert.ToDouble(sample.Value, CultureInfo.InvariantCulture),

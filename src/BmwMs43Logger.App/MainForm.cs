@@ -7,39 +7,49 @@ namespace BmwMs43Logger.App;
 internal sealed class MainForm : Form
 {
     private readonly LoggerUiStateMachine _stateMachine = new();
+    private readonly ParameterSelectionModel _selection = new();
     private readonly SimulatedLoggerRuntime _runtime = new();
     private readonly CancellationTokenSource _lifetime = new();
     private readonly Label _modeLabel = new();
     private readonly Label _stateLabel = new();
     private readonly Label _errorLabel = new();
+    private readonly Label _selectionSummaryLabel = new();
+    private readonly Label _searchResultLabel = new();
     private readonly Button _connectButton = new();
     private readonly Button _startButton = new();
     private readonly Button _stopButton = new();
     private readonly Button _disconnectButton = new();
     private readonly Button _browseButton = new();
     private readonly Button _openFolderButton = new();
+    private readonly Button _selectApprovedButton = new();
+    private readonly Button _clearSelectionButton = new();
     private readonly TextBox _outputTextBox = new();
+    private readonly TextBox _searchTextBox = new();
     private readonly NumericUpDown _hzInput = new();
-    private readonly DataGridView _valuesGrid = new();
+    private readonly DataGridView _parameterGrid = new();
     private readonly RichTextBox _eventLog = new();
-    private readonly Dictionary<string, DataGridViewRow> _valueRows =
+    private readonly Dictionary<string, DataGridViewRow> _parameterRows =
         new(StringComparer.Ordinal);
     private string? _lastRunDirectory;
+    private bool _updatingGrid;
     private bool _shutdownStarted;
     private bool _shutdownComplete;
 
     public MainForm()
     {
-        Text = "BMW MS43 Read-only Logger — BMW-09 offline";
+        Text = "BMW MS43 Read-only Logger — BMW-10 parameter manager (offline)";
         StartPosition = FormStartPosition.CenterScreen;
-        MinimumSize = new Size(860, 600);
-        Size = new Size(980, 680);
+        MinimumSize = new Size(1050, 680);
+        Size = new Size(1320, 820);
         Font = new Font("Segoe UI", 9F);
         BuildLayout();
         WireEvents();
-        InitializeValuesGrid();
+        InitializeParameterGrid();
+        ApplySelectionSnapshot(_selection.Snapshot);
         ApplySnapshot(_stateMachine.Snapshot);
-        AppendEvent("Offline GUI ready. No ECU interface has been created.");
+        AppendEvent(
+            "Offline GUI ready. 28 catalog entries; 22 approved and selectable. " +
+            "No ECU interface has been created.");
     }
 
     protected override void OnFormClosing(FormClosingEventArgs e)
@@ -77,20 +87,22 @@ internal sealed class MainForm : Form
             Dock = DockStyle.Fill,
             Padding = new Padding(12),
             ColumnCount = 1,
-            RowCount = 6
+            RowCount = 7
         };
         root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-        root.RowStyles.Add(new RowStyle(SizeType.Percent, 58F));
-        root.RowStyles.Add(new RowStyle(SizeType.Percent, 42F));
+        root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        root.RowStyles.Add(new RowStyle(SizeType.Percent, 64F));
+        root.RowStyles.Add(new RowStyle(SizeType.Percent, 36F));
         root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         Controls.Add(root);
 
         _modeLabel.AutoSize = true;
         _modeLabel.Font = new Font(Font, FontStyle.Bold);
         _modeLabel.ForeColor = Color.DarkOrange;
-        _modeLabel.Text = "OFFLINE SIMULATION — COMMUNICATION_ATTEMPTED=False";
+        _modeLabel.Text =
+            "OFFLINE SIMULATION — COMMUNICATION_ATTEMPTED=False — BMW-10";
         root.Controls.Add(_modeLabel, 0, 0);
 
         var commandRow = new FlowLayoutPanel
@@ -127,7 +139,7 @@ internal sealed class MainForm : Form
             Dock = DockStyle.Top,
             AutoSize = true,
             ColumnCount = 4,
-            Padding = new Padding(0, 0, 0, 8)
+            Padding = new Padding(0, 0, 0, 6)
         };
         outputRow.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
         outputRow.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
@@ -142,7 +154,7 @@ internal sealed class MainForm : Form
         }, 0, 0);
         _outputTextBox.Dock = DockStyle.Fill;
         _outputTextBox.Text = Path.GetFullPath(
-            Path.Combine("data", "private", "bmw09-gui-sim"));
+            Path.Combine("data", "private", "bmw10-gui-sim"));
         outputRow.Controls.Add(_outputTextBox, 1, 0);
         ConfigureButton(_browseButton, "Browse…", 88);
         ConfigureButton(_openFolderButton, "Open last run", 112);
@@ -150,26 +162,55 @@ internal sealed class MainForm : Form
         outputRow.Controls.Add(_openFolderButton, 3, 0);
         root.Controls.Add(outputRow, 0, 2);
 
-        _valuesGrid.Dock = DockStyle.Fill;
-        _valuesGrid.AllowUserToAddRows = false;
-        _valuesGrid.AllowUserToDeleteRows = false;
-        _valuesGrid.AllowUserToResizeRows = false;
-        _valuesGrid.ReadOnly = true;
-        _valuesGrid.RowHeadersVisible = false;
-        _valuesGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        _valuesGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        _valuesGrid.MultiSelect = false;
-        _valuesGrid.Columns.Add("parameter", "Parameter");
-        _valuesGrid.Columns.Add("value", "Value");
-        _valuesGrid.Columns.Add("unit", "Unit");
-        _valuesGrid.Columns.Add("quality", "Quality");
-        root.Controls.Add(_valuesGrid, 0, 3);
+        var selectionPanel = new TableLayoutPanel
+        {
+            Dock = DockStyle.Top,
+            AutoSize = true,
+            ColumnCount = 1,
+            RowCount = 2,
+            Padding = new Padding(0, 0, 0, 6)
+        };
+        var selectionCommands = new FlowLayoutPanel
+        {
+            Dock = DockStyle.Top,
+            AutoSize = true,
+            WrapContents = true
+        };
+        selectionCommands.Controls.Add(new Label
+        {
+            Text = "Search:",
+            AutoSize = true,
+            Margin = new Padding(0, 8, 6, 0)
+        });
+        _searchTextBox.Width = 300;
+        _searchTextBox.PlaceholderText =
+            "display name, internal name, ID, unit or status";
+        _searchTextBox.Margin = new Padding(0, 4, 10, 0);
+        selectionCommands.Controls.Add(_searchTextBox);
+        ConfigureButton(_selectApprovedButton, "Select approved", 128);
+        ConfigureButton(_clearSelectionButton, "Clear selection", 124);
+        selectionCommands.Controls.Add(_selectApprovedButton);
+        selectionCommands.Controls.Add(_clearSelectionButton);
+        _searchResultLabel.AutoSize = true;
+        _searchResultLabel.Margin = new Padding(10, 8, 0, 0);
+        selectionCommands.Controls.Add(_searchResultLabel);
+        selectionPanel.Controls.Add(selectionCommands, 0, 0);
+
+        _selectionSummaryLabel.AutoSize = true;
+        _selectionSummaryLabel.Font = new Font(Font, FontStyle.Bold);
+        _selectionSummaryLabel.ForeColor = Color.DarkSlateBlue;
+        _selectionSummaryLabel.Margin = new Padding(0, 4, 0, 2);
+        selectionPanel.Controls.Add(_selectionSummaryLabel, 0, 1);
+        root.Controls.Add(selectionPanel, 0, 3);
+
+        ConfigureParameterGrid();
+        root.Controls.Add(_parameterGrid, 0, 4);
 
         _eventLog.Dock = DockStyle.Fill;
         _eventLog.ReadOnly = true;
         _eventLog.BackColor = Color.FromArgb(248, 248, 248);
         _eventLog.Font = new Font("Consolas", 9F);
-        root.Controls.Add(_eventLog, 0, 4);
+        root.Controls.Add(_eventLog, 0, 5);
 
         var statusRow = new TableLayoutPanel
         {
@@ -186,18 +227,54 @@ internal sealed class MainForm : Form
         _errorLabel.Margin = new Padding(18, 0, 0, 0);
         statusRow.Controls.Add(_stateLabel, 0, 0);
         statusRow.Controls.Add(_errorLabel, 1, 0);
-        root.Controls.Add(statusRow, 0, 5);
+        root.Controls.Add(statusRow, 0, 6);
+    }
+
+    private void ConfigureParameterGrid()
+    {
+        _parameterGrid.Dock = DockStyle.Fill;
+        _parameterGrid.AllowUserToAddRows = false;
+        _parameterGrid.AllowUserToDeleteRows = false;
+        _parameterGrid.AllowUserToResizeRows = false;
+        _parameterGrid.RowHeadersVisible = false;
+        _parameterGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+        _parameterGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        _parameterGrid.MultiSelect = false;
+        _parameterGrid.AutoGenerateColumns = false;
+
+        _parameterGrid.Columns.AddRange(
+        [
+            new DataGridViewCheckBoxColumn
+            {
+                Name = "selected",
+                HeaderText = "Use",
+                Width = 48,
+                ThreeState = false
+            },
+            TextColumn("display", "Display name", 205),
+            TextColumn("parameter", "Parameter ID", 230),
+            TextColumn("internal", "Internal name", 190),
+            TextColumn("value", "Latest value", 100),
+            TextColumn("unit", "Unit", 72),
+            TextColumn("type", "Type", 62),
+            TextColumn("support", "Support", 220),
+            TextColumn("quality", "Quality", 90)
+        ]);
     }
 
     private void WireEvents()
     {
-        _stateMachine.Changed += (_, snapshot) => RunOnUi(() => ApplySnapshot(snapshot));
+        _stateMachine.Changed += (_, snapshot) =>
+            RunOnUi(() => ApplySnapshot(snapshot));
+        _selection.Changed += (_, snapshot) =>
+            RunOnUi(() => ApplySelectionSnapshot(snapshot));
         _runtime.ProgressChanged += (_, progress) =>
             RunOnUi(() => ApplyProgress(progress));
         _runtime.Faulted += (_, safeError) => RunOnUi(() =>
         {
             LoggerUiSnapshot snapshot = _stateMachine.Snapshot;
-            if (snapshot.State is not (LoggerUiState.Disconnected or LoggerUiState.Faulted))
+            if (snapshot.State is not (
+                    LoggerUiState.Disconnected or LoggerUiState.Faulted))
             {
                 _stateMachine.ReportRuntimeFault(safeError);
             }
@@ -210,20 +287,117 @@ internal sealed class MainForm : Form
         _disconnectButton.Click += async (_, _) => await DisconnectAsync();
         _browseButton.Click += (_, _) => BrowseOutput();
         _openFolderButton.Click += (_, _) => OpenLastRun();
+        _selectApprovedButton.Click += (_, _) => _selection.SelectAllApproved();
+        _clearSelectionButton.Click += (_, _) => _selection.Clear();
+        _searchTextBox.TextChanged += (_, _) => ApplySearchFilter();
+        _hzInput.ValueChanged += (_, _) =>
+            ApplySelectionSnapshot(_selection.Snapshot);
+        _parameterGrid.CellBeginEdit += ParameterGridCellBeginEdit;
+        _parameterGrid.CellValueChanged += ParameterGridCellValueChanged;
+        _parameterGrid.CurrentCellDirtyStateChanged += (_, _) =>
+        {
+            if (_parameterGrid.IsCurrentCellDirty)
+            {
+                _parameterGrid.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        };
     }
 
-    private void InitializeValuesGrid()
+    private void InitializeParameterGrid()
     {
-        AddValueRow("engine.rpm", "1/min");
-        AddValueRow("vehicle.speed", "km/h");
-        AddValueRow("engine.coolant.temperature", "GradC");
-        AddValueRow("electrical.battery.voltage", "V");
+        var selected = new HashSet<ParameterId>(
+            _selection.Snapshot.SelectedParameters);
+        _updatingGrid = true;
+        try
+        {
+            foreach (LoggerParameterDefinition definition in
+                     Ms43ParameterCatalog.Entries)
+            {
+                bool isSelected = selected.Contains(definition.ParameterId);
+                string quality = definition.IsSelectable
+                    ? isSelected ? "missing" : "not selected"
+                    : "withheld";
+                int index = _parameterGrid.Rows.Add(
+                    isSelected,
+                    definition.DisplayNameHu,
+                    definition.ParameterId.Value,
+                    definition.InternalName,
+                    "—",
+                    definition.Unit,
+                    definition.DataType,
+                    definition.SupportStatus,
+                    quality);
+                DataGridViewRow row = _parameterGrid.Rows[index];
+                row.Tag = definition;
+                for (int column = 1; column < row.Cells.Count; column++)
+                {
+                    row.Cells[column].ReadOnly = true;
+                }
+                row.Cells[0].ReadOnly = !definition.IsSelectable;
+                if (!definition.IsSelectable)
+                {
+                    row.DefaultCellStyle.ForeColor = Color.DimGray;
+                    row.Cells[0].Style.BackColor = Color.Gainsboro;
+                    row.Cells[7].Style.ForeColor = Color.DarkRed;
+                }
+                _parameterRows.Add(definition.ParameterId.Value, row);
+            }
+        }
+        finally
+        {
+            _updatingGrid = false;
+        }
+        ApplySearchFilter();
     }
 
-    private void AddValueRow(string parameterId, string unit)
+    private void ParameterGridCellBeginEdit(
+        object? sender,
+        DataGridViewCellCancelEventArgs e)
     {
-        int index = _valuesGrid.Rows.Add(parameterId, "—", unit, "missing");
-        _valueRows.Add(parameterId, _valuesGrid.Rows[index]);
+        if (e.RowIndex < 0 ||
+            e.ColumnIndex != _parameterGrid.Columns["selected"]!.Index ||
+            _parameterGrid.Rows[e.RowIndex].Tag is not
+                LoggerParameterDefinition definition)
+        {
+            e.Cancel = true;
+            return;
+        }
+
+        LoggerUiState state = _stateMachine.Snapshot.State;
+        bool configurationState = state is
+            LoggerUiState.Disconnected or LoggerUiState.Ready;
+        e.Cancel = !configurationState ||
+                   _selection.Snapshot.IsLocked ||
+                   !definition.IsSelectable;
+    }
+
+    private void ParameterGridCellValueChanged(
+        object? sender,
+        DataGridViewCellEventArgs e)
+    {
+        if (_updatingGrid ||
+            e.RowIndex < 0 ||
+            e.ColumnIndex != _parameterGrid.Columns["selected"]!.Index)
+        {
+            return;
+        }
+
+        DataGridViewRow row = _parameterGrid.Rows[e.RowIndex];
+        if (row.Tag is not LoggerParameterDefinition definition)
+        {
+            return;
+        }
+
+        bool selected = row.Cells["selected"].Value is bool value && value;
+        try
+        {
+            _selection.SetSelected(definition.ParameterId, selected);
+        }
+        catch (InvalidOperationException)
+        {
+            AppendEvent($"Selection rejected: {definition.ParameterId.Value}");
+            ApplySelectionSnapshot(_selection.Snapshot);
+        }
     }
 
     private async Task ConnectAsync()
@@ -268,18 +442,30 @@ internal sealed class MainForm : Form
 
         try
         {
+            IReadOnlyList<ParameterId> selected =
+                _selection.CaptureForSession();
+            ResetValuesForNewRun(selected);
             string output = _outputTextBox.Text.Trim();
             double hz = decimal.ToDouble(_hzInput.Value);
+            SamplingBudgetEstimate budget = SamplingBudgetEstimator.Estimate(
+                selected,
+                hz);
             string runDirectory = await _runtime.StartAsync(
                 output,
                 hz,
+                selected,
                 _lifetime.Token);
             _lastRunDirectory = runDirectory;
             _stateMachine.CompleteStart(operation, succeeded: true);
+            AppendEvent(
+                $"Selection locked: {selected.Count} parameters; " +
+                $"live-model jobs={budget.PlannedJobs}; " +
+                $"ceiling={budget.EstimatedMaximumHz:F2} Hz.");
             AppendEvent($"Logging started: {runDirectory}");
         }
         catch (Exception exception)
         {
+            _selection.ReleaseSession();
             CompleteFailure(
                 operation,
                 LoggerUiOperationKind.Start,
@@ -306,6 +492,7 @@ internal sealed class MainForm : Form
                 _lifetime.Token);
             _lastRunDirectory = result.RunDirectory;
             _stateMachine.CompleteStop(operation, succeeded: true);
+            _selection.ReleaseSession();
             AppendEvent(
                 $"Completed: cycles={result.CyclesWritten}; " +
                 $"samples={result.SamplesWritten}; " +
@@ -337,6 +524,7 @@ internal sealed class MainForm : Form
         {
             await _runtime.DisconnectAsync(_lifetime.Token);
             _stateMachine.CompleteDisconnect(operation, succeeded: true);
+            _selection.ReleaseSession();
             ResetDisplayedValues();
             AppendEvent("Disconnected.");
         }
@@ -394,27 +582,118 @@ internal sealed class MainForm : Form
         _errorLabel.Text = snapshot.LastError is null
             ? string.Empty
             : $"Error: {snapshot.LastError}";
-        _connectButton.Enabled = snapshot.CanConnect;
-        _startButton.Enabled = snapshot.CanStart;
-        _stopButton.Enabled = snapshot.CanStop;
-        _disconnectButton.Enabled = snapshot.CanDisconnect;
-        bool configurationEnabled = snapshot.State is
+        ApplyCommandAvailability(snapshot, _selection.Snapshot);
+    }
+
+    private void ApplySelectionSnapshot(ParameterSelectionSnapshot snapshot)
+    {
+        if (_parameterRows.Count > 0)
+        {
+            var selected = new HashSet<ParameterId>(snapshot.SelectedParameters);
+            _updatingGrid = true;
+            try
+            {
+                foreach (LoggerParameterDefinition definition in
+                         Ms43ParameterCatalog.Entries)
+                {
+                    DataGridViewRow row =
+                        _parameterRows[definition.ParameterId.Value];
+                    bool isSelected = selected.Contains(definition.ParameterId);
+                    row.Cells["selected"].Value = isSelected;
+                    if (!definition.IsSelectable)
+                    {
+                        row.Cells["value"].Value = "—";
+                        row.Cells["quality"].Value = "withheld";
+                    }
+                    else if (!isSelected)
+                    {
+                        row.Cells["value"].Value = "—";
+                        row.Cells["quality"].Value = "not selected";
+                    }
+                    else if (string.Equals(
+                                 row.Cells["quality"].Value?.ToString(),
+                                 "not selected",
+                                 StringComparison.Ordinal))
+                    {
+                        row.Cells["quality"].Value = "missing";
+                    }
+                }
+            }
+            finally
+            {
+                _updatingGrid = false;
+            }
+        }
+
+        double requestedHz = decimal.ToDouble(_hzInput.Value);
+        SamplingBudgetEstimate budget = SamplingBudgetEstimator.Estimate(
+            snapshot.SelectedParameters,
+            requestedHz);
+        string lockText = snapshot.IsLocked ? "LOCKED FOR ACTIVE RUN" : "editable";
+        _selectionSummaryLabel.Text = budget.SelectedParameters == 0
+            ? $"Selected 0/{snapshot.ApprovedCount} approved " +
+              $"({snapshot.CatalogCount} catalog) — Start blocked — {lockText}"
+            : $"Selected {budget.SelectedParameters}/{snapshot.ApprovedCount} approved " +
+              $"({snapshot.CatalogCount} catalog) — LIVE BUDGET MODEL: " +
+              $"jobs={budget.PlannedJobs}, results={budget.ResultRequests}, " +
+              $"cycle≈{budget.EstimatedCycleMilliseconds:F0} ms, " +
+              $"ceiling≈{budget.EstimatedMaximumHz:F2} Hz, " +
+              $"estimated effective≈{budget.EstimatedEffectiveHz:F2} Hz — {lockText}";
+        ApplyCommandAvailability(_stateMachine.Snapshot, snapshot);
+    }
+
+    private void ApplyCommandAvailability(
+        LoggerUiSnapshot state,
+        ParameterSelectionSnapshot selection)
+    {
+        _connectButton.Enabled = state.CanConnect;
+        _startButton.Enabled = state.CanStart && selection.SelectedCount > 0;
+        _stopButton.Enabled = state.CanStop;
+        _disconnectButton.Enabled = state.CanDisconnect;
+        bool configurationEnabled = state.State is
             LoggerUiState.Disconnected or LoggerUiState.Ready;
+        bool selectionEnabled = configurationEnabled && !selection.IsLocked;
         _outputTextBox.Enabled = configurationEnabled;
         _browseButton.Enabled = configurationEnabled;
         _hzInput.Enabled = configurationEnabled;
+        _selectApprovedButton.Enabled = selectionEnabled;
+        _clearSelectionButton.Enabled = selectionEnabled;
         _openFolderButton.Enabled =
             _lastRunDirectory is not null && Directory.Exists(_lastRunDirectory);
+    }
+
+    private void ApplySearchFilter()
+    {
+        if (_parameterRows.Count == 0)
+        {
+            return;
+        }
+
+        _parameterGrid.CurrentCell = null;
+        int visible = 0;
+        foreach (LoggerParameterDefinition definition in Ms43ParameterCatalog.Entries)
+        {
+            bool match = definition.Matches(_searchTextBox.Text);
+            _parameterRows[definition.ParameterId.Value].Visible = match;
+            if (match)
+            {
+                visible++;
+            }
+        }
+        _searchResultLabel.Text =
+            $"Visible: {visible}/{Ms43ParameterCatalog.Entries.Count}";
     }
 
     private void ApplyProgress(SimulatedLoggerProgress progress)
     {
         foreach ((string parameterId, double value) in progress.LatestValues)
         {
-            if (_valueRows.TryGetValue(parameterId, out DataGridViewRow? row))
+            if (_parameterRows.TryGetValue(parameterId, out DataGridViewRow? row))
             {
-                row.Cells[1].Value = value.ToString("F3", CultureInfo.InvariantCulture);
-                row.Cells[3].Value = "valid";
+                row.Cells["value"].Value = value.ToString(
+                    "F3",
+                    CultureInfo.InvariantCulture);
+                row.Cells["quality"].Value = "valid";
             }
         }
         if (progress.CyclesWritten == 1 || progress.CyclesWritten % 25 == 0)
@@ -423,14 +702,23 @@ internal sealed class MainForm : Form
         }
     }
 
-    private void ResetDisplayedValues()
+    private void ResetValuesForNewRun(IReadOnlyCollection<ParameterId> selected)
     {
-        foreach (DataGridViewRow row in _valueRows.Values)
+        var selectedSet = new HashSet<ParameterId>(selected);
+        foreach (LoggerParameterDefinition definition in Ms43ParameterCatalog.Entries)
         {
-            row.Cells[1].Value = "—";
-            row.Cells[3].Value = "missing";
+            DataGridViewRow row = _parameterRows[definition.ParameterId.Value];
+            row.Cells["value"].Value = "—";
+            row.Cells["quality"].Value = !definition.IsSelectable
+                ? "withheld"
+                : selectedSet.Contains(definition.ParameterId)
+                    ? "missing"
+                    : "not selected";
         }
     }
+
+    private void ResetDisplayedValues() =>
+        ResetValuesForNewRun(_selection.Snapshot.SelectedParameters);
 
     private void BrowseOutput()
     {
@@ -474,10 +762,12 @@ internal sealed class MainForm : Form
                 else
                 {
                     await _runtime.StopAsync();
+                    _selection.ReleaseSession();
                 }
             }
             if (_runtime.IsConnected &&
-                _stateMachine.Snapshot.State is LoggerUiState.Ready or LoggerUiState.Faulted)
+                _stateMachine.Snapshot.State is
+                    LoggerUiState.Ready or LoggerUiState.Faulted)
             {
                 await DisconnectAsync();
             }
@@ -489,6 +779,7 @@ internal sealed class MainForm : Form
         }
         finally
         {
+            _selection.ReleaseSession();
             _lifetime.Cancel();
             _lifetime.Dispose();
             _shutdownComplete = true;
@@ -519,6 +810,18 @@ internal sealed class MainForm : Form
         _eventLog.SelectionStart = _eventLog.TextLength;
         _eventLog.ScrollToCaret();
     }
+
+    private static DataGridViewTextBoxColumn TextColumn(
+        string name,
+        string header,
+        int width) =>
+        new()
+        {
+            Name = name,
+            HeaderText = header,
+            Width = width,
+            ReadOnly = true
+        };
 
     private static void ConfigureButton(Button button, string text, int width)
     {
