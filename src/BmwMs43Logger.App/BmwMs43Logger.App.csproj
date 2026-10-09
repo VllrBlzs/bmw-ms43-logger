@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>BmwMs43Logger</AssemblyName>
+    <RootNamespace>BmwMs43Logger.App</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BmwMs43Logger.Core\BmwMs43Logger.Core.csproj" />
+  </ItemGroup>
+</Project>
