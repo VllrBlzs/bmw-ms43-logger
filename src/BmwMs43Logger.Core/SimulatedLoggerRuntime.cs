@@ -227,7 +227,7 @@ public sealed class SimulatedLoggerRuntime : IAsyncDisposable
         long startedTicks = Stopwatch.GetTimestamp();
         string runDirectory = Path.Combine(
             outputRoot,
-            "bmw11_simulated_" +
+            "bmw12_simulated_" +
             startedAtUtc.UtcDateTime.ToString("yyyyMMdd_HHmmss_fff", CultureInfo.InvariantCulture) +
             "_" + Guid.NewGuid().ToString("N")[..6]);
         string sessionId = "bmw11.simulated." +

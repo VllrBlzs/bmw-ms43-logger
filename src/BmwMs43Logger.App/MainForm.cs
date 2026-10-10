@@ -9,6 +9,9 @@ internal sealed class MainForm : Form
     private readonly ParameterSelectionModel _selection = new();
     private readonly SimulatedLoggerRuntime _runtime = new();
     private readonly LatestLiveValueBuffer _liveValues = new();
+    private readonly LivePlotHistory _plotHistory = new();
+    private readonly HashSet<ParameterId> _plotSelection = new(
+        Ms43ParameterCatalog.DefaultSelection);
     private readonly CancellationTokenSource _lifetime = new();
     private readonly System.Windows.Forms.Timer _displayTimer = new()
     {
@@ -31,6 +34,7 @@ internal sealed class MainForm : Form
     private readonly TextBox _searchTextBox = new();
     private readonly NumericUpDown _hzInput = new();
     private readonly DataGridView _parameterGrid = new();
+    private readonly LivePlotControl _plotControl = new();
     private readonly RichTextBox _eventLog = new();
     private readonly Dictionary<string, DataGridViewRow> _parameterRows =
         new(StringComparer.Ordinal);
@@ -44,10 +48,10 @@ internal sealed class MainForm : Form
 
     public MainForm()
     {
-        Text = "BMW MS43 Read-only Logger — BMW-11 live values (offline)";
+        Text = "BMW MS43 Read-only Logger — BMW-12 bounded live plots (offline)";
         StartPosition = FormStartPosition.CenterScreen;
-        MinimumSize = new Size(1050, 680);
-        Size = new Size(1450, 840);
+        MinimumSize = new Size(1150, 760);
+        Size = new Size(1500, 960);
         Font = new Font("Segoe UI", 9F);
         BuildLayout();
         WireEvents();
@@ -56,8 +60,8 @@ internal sealed class MainForm : Form
         ApplySnapshot(_stateMachine.Snapshot);
         _displayTimer.Start();
         AppendEvent(
-            "Offline live-value GUI ready. Values, unit, UTC acquisition time, " +
-            "monotonic age and quality are rendered independently from polling. " +
+            "Offline bounded-plot GUI ready. Up to five separately scaled channels " +
+            "use acquisition timestamps and gap-aware normalized samples. " +
             "No ECU interface has been created.");
     }
 
@@ -96,14 +100,15 @@ internal sealed class MainForm : Form
             Dock = DockStyle.Fill,
             Padding = new Padding(12),
             ColumnCount = 1,
-            RowCount = 7
+            RowCount = 8
         };
         root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-        root.RowStyles.Add(new RowStyle(SizeType.Percent, 64F));
-        root.RowStyles.Add(new RowStyle(SizeType.Percent, 36F));
+        root.RowStyles.Add(new RowStyle(SizeType.Percent, 42F));
+        root.RowStyles.Add(new RowStyle(SizeType.Percent, 38F));
+        root.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
         root.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         Controls.Add(root);
 
@@ -111,7 +116,7 @@ internal sealed class MainForm : Form
         _modeLabel.Font = new Font(Font, FontStyle.Bold);
         _modeLabel.ForeColor = Color.DarkOrange;
         _modeLabel.Text =
-            "OFFLINE SIMULATION — COMMUNICATION_ATTEMPTED=False — BMW-11";
+            "OFFLINE SIMULATION — COMMUNICATION_ATTEMPTED=False — BMW-12";
         root.Controls.Add(_modeLabel, 0, 0);
 
         var commandRow = new FlowLayoutPanel
@@ -163,7 +168,7 @@ internal sealed class MainForm : Form
         }, 0, 0);
         _outputTextBox.Dock = DockStyle.Fill;
         _outputTextBox.Text = Path.GetFullPath(
-            Path.Combine("data", "private", "bmw11-gui-sim"));
+            Path.Combine("data", "private", "bmw12-gui-sim"));
         outputRow.Controls.Add(_outputTextBox, 1, 0);
         ConfigureButton(_browseButton, "Browse…", 88);
         ConfigureButton(_openFolderButton, "Open last run", 112);
@@ -215,11 +220,15 @@ internal sealed class MainForm : Form
         ConfigureParameterGrid();
         root.Controls.Add(_parameterGrid, 0, 4);
 
+        _plotControl.Dock = DockStyle.Fill;
+        _plotControl.Margin = new Padding(0, 6, 0, 6);
+        root.Controls.Add(_plotControl, 0, 5);
+
         _eventLog.Dock = DockStyle.Fill;
         _eventLog.ReadOnly = true;
         _eventLog.BackColor = Color.FromArgb(248, 248, 248);
         _eventLog.Font = new Font("Consolas", 9F);
-        root.Controls.Add(_eventLog, 0, 5);
+        root.Controls.Add(_eventLog, 0, 6);
 
         var statusRow = new TableLayoutPanel
         {
@@ -236,7 +245,7 @@ internal sealed class MainForm : Form
         _errorLabel.Margin = new Padding(18, 0, 0, 0);
         statusRow.Controls.Add(_stateLabel, 0, 0);
         statusRow.Controls.Add(_errorLabel, 1, 0);
-        root.Controls.Add(statusRow, 0, 6);
+        root.Controls.Add(statusRow, 0, 7);
     }
 
     private void ConfigureParameterGrid()
@@ -260,16 +269,23 @@ internal sealed class MainForm : Form
                 Width = 48,
                 ThreeState = false
             },
-            TextColumn("display", "Display name", 190),
-            TextColumn("parameter", "Parameter ID", 215),
-            TextColumn("internal", "Internal name", 165),
-            TextColumn("value", "Latest value", 94),
-            TextColumn("unit", "Unit", 68),
+            new DataGridViewCheckBoxColumn
+            {
+                Name = "plot",
+                HeaderText = "Plot",
+                Width = 48,
+                ThreeState = false
+            },
+            TextColumn("display", "Display name", 180),
+            TextColumn("parameter", "Parameter ID", 205),
+            TextColumn("internal", "Internal name", 155),
+            TextColumn("value", "Latest value", 90),
+            TextColumn("unit", "Unit", 64),
             TextColumn("acquired", "Acquired at", 122),
             TextColumn("age", "Age", 72),
             TextColumn("quality", "Quality", 82),
             TextColumn("type", "Type", 62),
-            TextColumn("support", "Support", 205)
+            TextColumn("support", "Support", 195)
         ]);
     }
 
@@ -280,7 +296,10 @@ internal sealed class MainForm : Form
         _selection.Changed += (_, snapshot) =>
             RunOnUi(() => ApplySelectionSnapshot(snapshot));
         _runtime.ProgressChanged += (_, progress) =>
+        {
             _liveValues.Publish(progress.Cycle);
+            _plotHistory.Publish(progress.Cycle);
+        };
         _runtime.Faulted += (_, safeError) => RunOnUi(() =>
         {
             LoggerUiSnapshot snapshot = _stateMachine.Snapshot;
@@ -326,11 +345,13 @@ internal sealed class MainForm : Form
                      Ms43ParameterCatalog.Entries)
             {
                 bool isSelected = selected.Contains(definition.ParameterId);
+                bool isPlotted = _plotSelection.Contains(definition.ParameterId);
                 string quality = definition.IsSelectable
                     ? isSelected ? "missing" : "not selected"
                     : "withheld";
                 int index = _parameterGrid.Rows.Add(
                     isSelected,
+                    isPlotted,
                     definition.DisplayNameHu,
                     definition.ParameterId.Value,
                     definition.InternalName,
@@ -343,15 +364,17 @@ internal sealed class MainForm : Form
                     definition.SupportStatus);
                 DataGridViewRow row = _parameterGrid.Rows[index];
                 row.Tag = definition;
-                for (int column = 1; column < row.Cells.Count; column++)
+                for (int column = 2; column < row.Cells.Count; column++)
                 {
                     row.Cells[column].ReadOnly = true;
                 }
                 row.Cells[0].ReadOnly = !definition.IsSelectable;
+                row.Cells[1].ReadOnly = !definition.IsSelectable || !isSelected;
                 if (!definition.IsSelectable)
                 {
                     row.DefaultCellStyle.ForeColor = Color.DimGray;
                     row.Cells[0].Style.BackColor = Color.Gainsboro;
+                    row.Cells[1].Style.BackColor = Color.Gainsboro;
                     row.Cells["support"].Style.ForeColor = Color.DarkRed;
                 }
                 _parameterRows.Add(definition.ParameterId.Value, row);
@@ -369,9 +392,16 @@ internal sealed class MainForm : Form
         DataGridViewCellCancelEventArgs e)
     {
         if (e.RowIndex < 0 ||
-            e.ColumnIndex != _parameterGrid.Columns["selected"]!.Index ||
             _parameterGrid.Rows[e.RowIndex].Tag is not
                 LoggerParameterDefinition definition)
+        {
+            e.Cancel = true;
+            return;
+        }
+
+        int selectedColumn = _parameterGrid.Columns["selected"]!.Index;
+        int plotColumn = _parameterGrid.Columns["plot"]!.Index;
+        if (e.ColumnIndex != selectedColumn && e.ColumnIndex != plotColumn)
         {
             e.Cancel = true;
             return;
@@ -380,18 +410,20 @@ internal sealed class MainForm : Form
         LoggerUiState state = _stateMachine.Snapshot.State;
         bool configurationState = state is
             LoggerUiState.Disconnected or LoggerUiState.Ready;
+        bool isSelected =
+            _parameterGrid.Rows[e.RowIndex].Cells["selected"].Value is bool selected &&
+            selected;
         e.Cancel = !configurationState ||
                    _selection.Snapshot.IsLocked ||
-                   !definition.IsSelectable;
+                   !definition.IsSelectable ||
+                   (e.ColumnIndex == plotColumn && !isSelected);
     }
 
     private void ParameterGridCellValueChanged(
         object? sender,
         DataGridViewCellEventArgs e)
     {
-        if (_updatingGrid ||
-            e.RowIndex < 0 ||
-            e.ColumnIndex != _parameterGrid.Columns["selected"]!.Index)
+        if (_updatingGrid || e.RowIndex < 0)
         {
             return;
         }
@@ -402,15 +434,67 @@ internal sealed class MainForm : Form
             return;
         }
 
-        bool selected = row.Cells["selected"].Value is bool value && value;
-        try
+        int selectedColumn = _parameterGrid.Columns["selected"]!.Index;
+        int plotColumn = _parameterGrid.Columns["plot"]!.Index;
+        if (e.ColumnIndex == selectedColumn)
         {
-            _selection.SetSelected(definition.ParameterId, selected);
+            bool selected =
+                row.Cells["selected"].Value is bool selectedValue && selectedValue;
+            try
+            {
+                _selection.SetSelected(definition.ParameterId, selected);
+                if (!selected)
+                {
+                    _plotSelection.Remove(definition.ParameterId);
+                    ClearPlotPreview();
+                    ApplySelectionSnapshot(_selection.Snapshot);
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                AppendEvent($"Selection rejected: {definition.ParameterId.Value}");
+                ApplySelectionSnapshot(_selection.Snapshot);
+            }
+            return;
         }
-        catch (InvalidOperationException)
+
+        if (e.ColumnIndex == plotColumn)
         {
-            AppendEvent($"Selection rejected: {definition.ParameterId.Value}");
-            ApplySelectionSnapshot(_selection.Snapshot);
+            bool plotted = row.Cells["plot"].Value is bool plotValue && plotValue;
+            try
+            {
+                if (plotted)
+                {
+                    bool selected =
+                        row.Cells["selected"].Value is bool selectedValue &&
+                        selectedValue;
+                    if (!selected)
+                    {
+                        throw new InvalidOperationException(
+                            "Only logged parameters can be plotted.");
+                    }
+                    if (!_plotSelection.Contains(definition.ParameterId) &&
+                        _plotSelection.Count >= LivePlotHistory.MaximumChannels)
+                    {
+                        throw new InvalidOperationException(
+                            $"At most {LivePlotHistory.MaximumChannels} channels can be plotted.");
+                    }
+                    _plotSelection.Add(definition.ParameterId);
+                }
+                else
+                {
+                    _plotSelection.Remove(definition.ParameterId);
+                }
+                ClearPlotPreview();
+                ApplySelectionSnapshot(_selection.Snapshot);
+            }
+            catch (InvalidOperationException exception)
+            {
+                AppendEvent(
+                    $"Plot selection rejected: {definition.ParameterId.Value}; " +
+                    exception.Message);
+                ApplySelectionSnapshot(_selection.Snapshot);
+            }
         }
     }
 
@@ -458,7 +542,21 @@ internal sealed class MainForm : Form
         {
             IReadOnlyList<ParameterId> selected =
                 _selection.CaptureForSession();
+            var selectedSet = new HashSet<ParameterId>(selected);
+            ParameterId[] plotted = Ms43ParameterCatalog.Entries
+                .Where(definition =>
+                    selectedSet.Contains(definition.ParameterId) &&
+                    _plotSelection.Contains(definition.ParameterId))
+                .Select(definition => definition.ParameterId)
+                .ToArray();
+            if (plotted.Length is < 1 or > LivePlotHistory.MaximumChannels)
+            {
+                throw new InvalidOperationException(
+                    $"Select 1-{LivePlotHistory.MaximumChannels} plot channels before starting.");
+            }
             _liveValues.Reset();
+            _plotHistory.Reset(plotted);
+            _plotControl.SetSnapshot(_plotHistory.ReadSnapshot());
             _lastProgressCycle = 0;
             ResetValuesForNewRun(selected);
             string output = _outputTextBox.Text.Trim();
@@ -477,6 +575,7 @@ internal sealed class MainForm : Form
             _stateMachine.CompleteStart(operation, succeeded: true);
             AppendEvent(
                 $"Selection locked: {selected.Count} parameters; " +
+                $"plot-channels={plotted.Length}; " +
                 $"live-model jobs={budget.PlannedJobs}; " +
                 $"ceiling={budget.EstimatedMaximumHz:F2} Hz; " +
                 $"stale-after={_staleAfter.TotalMilliseconds:F0} ms.");
@@ -485,6 +584,7 @@ internal sealed class MainForm : Form
         catch (Exception exception)
         {
             _selection.ReleaseSession();
+            ClearPlotPreview();
             CompleteFailure(
                 operation,
                 LoggerUiOperationKind.Start,
@@ -545,6 +645,7 @@ internal sealed class MainForm : Form
             _stateMachine.CompleteDisconnect(operation, succeeded: true);
             _selection.ReleaseSession();
             _liveValues.Reset();
+            ClearPlotPreview();
             _lastProgressCycle = 0;
             ResetDisplayedValues();
             AppendEvent("Disconnected.");
@@ -611,6 +712,12 @@ internal sealed class MainForm : Form
         if (_parameterRows.Count > 0)
         {
             var selected = new HashSet<ParameterId>(snapshot.SelectedParameters);
+            int removedPlotChannels = _plotSelection.RemoveWhere(
+                parameterId => !selected.Contains(parameterId));
+            if (removedPlotChannels > 0 && !snapshot.IsLocked)
+            {
+                ClearPlotPreview();
+            }
             _updatingGrid = true;
             try
             {
@@ -621,6 +728,8 @@ internal sealed class MainForm : Form
                         _parameterRows[definition.ParameterId.Value];
                     bool isSelected = selected.Contains(definition.ParameterId);
                     row.Cells["selected"].Value = isSelected;
+                    row.Cells["plot"].Value =
+                        isSelected && _plotSelection.Contains(definition.ParameterId);
                     if (!definition.IsSelectable)
                     {
                         row.Cells["value"].Value = "—";
@@ -660,9 +769,13 @@ internal sealed class MainForm : Form
         string lockText = snapshot.IsLocked ? "LOCKED FOR ACTIVE RUN" : "editable";
         _selectionSummaryLabel.Text = budget.SelectedParameters == 0
             ? $"Selected 0/{snapshot.ApprovedCount} approved " +
-              $"({snapshot.CatalogCount} catalog) — Start blocked — {lockText}"
+              $"({snapshot.CatalogCount} catalog), plot 0/{LivePlotHistory.MaximumChannels} " +
+              $"— Start blocked — {lockText}"
             : $"Selected {budget.SelectedParameters}/{snapshot.ApprovedCount} approved " +
-              $"({snapshot.CatalogCount} catalog) — LIVE BUDGET MODEL: " +
+              $"({snapshot.CatalogCount} catalog), " +
+              $"plot {_plotSelection.Count}/{LivePlotHistory.MaximumChannels} — " +
+              (_plotSelection.Count == 0 ? "Start blocked — " : string.Empty) +
+              "LIVE BUDGET MODEL: " +
               $"jobs={budget.PlannedJobs}, results={budget.ResultRequests}, " +
               $"cycle≈{budget.EstimatedCycleMilliseconds:F0} ms, " +
               $"ceiling≈{budget.EstimatedMaximumHz:F2} Hz, " +
@@ -675,7 +788,9 @@ internal sealed class MainForm : Form
         ParameterSelectionSnapshot selection)
     {
         _connectButton.Enabled = state.CanConnect;
-        _startButton.Enabled = state.CanStart && selection.SelectedCount > 0;
+        _startButton.Enabled = state.CanStart &&
+            selection.SelectedCount > 0 &&
+            _plotSelection.Count is >= 1 and <= LivePlotHistory.MaximumChannels;
         _stopButton.Enabled = state.CanStop;
         _disconnectButton.Enabled = state.CanDisconnect;
         bool configurationEnabled = state.State is
@@ -686,6 +801,19 @@ internal sealed class MainForm : Form
         _hzInput.Enabled = configurationEnabled;
         _selectApprovedButton.Enabled = selectionEnabled;
         _clearSelectionButton.Enabled = selectionEnabled;
+        foreach (DataGridViewRow row in _parameterGrid.Rows)
+        {
+            if (row.Tag is not LoggerParameterDefinition definition)
+            {
+                continue;
+            }
+            bool isSelected =
+                row.Cells["selected"].Value is bool selectedValue && selectedValue;
+            row.Cells["selected"].ReadOnly =
+                !selectionEnabled || !definition.IsSelectable;
+            row.Cells["plot"].ReadOnly =
+                !selectionEnabled || !definition.IsSelectable || !isSelected;
+        }
         _openFolderButton.Enabled =
             _lastRunDirectory is not null && Directory.Exists(_lastRunDirectory);
     }
@@ -714,6 +842,8 @@ internal sealed class MainForm : Form
 
     private void RenderLatestValues()
     {
+        LivePlotSnapshot plotSnapshot = _plotHistory.ReadSnapshot();
+        _plotControl.SetSnapshot(plotSnapshot);
         LiveValueFrame? frame = _liveValues.ReadLatest();
         if (frame is null)
         {
@@ -750,7 +880,11 @@ internal sealed class MainForm : Form
         {
             AppendEvent(
                 $"Progress: {frame.CycleId} acquisition cycles; " +
-                $"GUI reads={_liveValues.SnapshotReads}");
+                $"GUI reads={_liveValues.SnapshotReads}; " +
+                $"plot reads={plotSnapshot.SnapshotReads}; " +
+                $"plot frames={_plotControl.RenderedFrames}; " +
+                $"render last/max={_plotControl.LastRenderMilliseconds:F2}/" +
+                $"{_plotControl.MaximumRenderMilliseconds:F2} ms");
         }
         _lastProgressCycle = Math.Max(_lastProgressCycle, frame.CycleId);
     }
@@ -805,6 +939,12 @@ internal sealed class MainForm : Form
 
     private void ResetDisplayedValues() =>
         ResetValuesForNewRun(_selection.Snapshot.SelectedParameters);
+
+    private void ClearPlotPreview()
+    {
+        _plotHistory.Clear();
+        _plotControl.SetSnapshot(_plotHistory.ReadSnapshot());
+    }
 
     private void BrowseOutput()
     {
