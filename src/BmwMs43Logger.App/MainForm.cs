@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Globalization;
 using BmwMs43Logger.Core;
 
 namespace BmwMs43Logger.App;
@@ -9,7 +8,12 @@ internal sealed class MainForm : Form
     private readonly LoggerUiStateMachine _stateMachine = new();
     private readonly ParameterSelectionModel _selection = new();
     private readonly SimulatedLoggerRuntime _runtime = new();
+    private readonly LatestLiveValueBuffer _liveValues = new();
     private readonly CancellationTokenSource _lifetime = new();
+    private readonly System.Windows.Forms.Timer _displayTimer = new()
+    {
+        Interval = LiveValuePresenter.GuiRefreshMilliseconds
+    };
     private readonly Label _modeLabel = new();
     private readonly Label _stateLabel = new();
     private readonly Label _errorLabel = new();
@@ -31,24 +35,29 @@ internal sealed class MainForm : Form
     private readonly Dictionary<string, DataGridViewRow> _parameterRows =
         new(StringComparer.Ordinal);
     private string? _lastRunDirectory;
+    private TimeSpan _staleAfter = TimeSpan.FromMilliseconds(
+        LiveValuePresenter.MinimumStaleMilliseconds);
+    private long _lastProgressCycle;
     private bool _updatingGrid;
     private bool _shutdownStarted;
     private bool _shutdownComplete;
 
     public MainForm()
     {
-        Text = "BMW MS43 Read-only Logger — BMW-10 parameter manager (offline)";
+        Text = "BMW MS43 Read-only Logger — BMW-11 live values (offline)";
         StartPosition = FormStartPosition.CenterScreen;
         MinimumSize = new Size(1050, 680);
-        Size = new Size(1320, 820);
+        Size = new Size(1450, 840);
         Font = new Font("Segoe UI", 9F);
         BuildLayout();
         WireEvents();
         InitializeParameterGrid();
         ApplySelectionSnapshot(_selection.Snapshot);
         ApplySnapshot(_stateMachine.Snapshot);
+        _displayTimer.Start();
         AppendEvent(
-            "Offline GUI ready. 28 catalog entries; 22 approved and selectable. " +
+            "Offline live-value GUI ready. Values, unit, UTC acquisition time, " +
+            "monotonic age and quality are rendered independently from polling. " +
             "No ECU interface has been created.");
     }
 
@@ -102,7 +111,7 @@ internal sealed class MainForm : Form
         _modeLabel.Font = new Font(Font, FontStyle.Bold);
         _modeLabel.ForeColor = Color.DarkOrange;
         _modeLabel.Text =
-            "OFFLINE SIMULATION — COMMUNICATION_ATTEMPTED=False — BMW-10";
+            "OFFLINE SIMULATION — COMMUNICATION_ATTEMPTED=False — BMW-11";
         root.Controls.Add(_modeLabel, 0, 0);
 
         var commandRow = new FlowLayoutPanel
@@ -154,7 +163,7 @@ internal sealed class MainForm : Form
         }, 0, 0);
         _outputTextBox.Dock = DockStyle.Fill;
         _outputTextBox.Text = Path.GetFullPath(
-            Path.Combine("data", "private", "bmw10-gui-sim"));
+            Path.Combine("data", "private", "bmw11-gui-sim"));
         outputRow.Controls.Add(_outputTextBox, 1, 0);
         ConfigureButton(_browseButton, "Browse…", 88);
         ConfigureButton(_openFolderButton, "Open last run", 112);
@@ -251,14 +260,16 @@ internal sealed class MainForm : Form
                 Width = 48,
                 ThreeState = false
             },
-            TextColumn("display", "Display name", 205),
-            TextColumn("parameter", "Parameter ID", 230),
-            TextColumn("internal", "Internal name", 190),
-            TextColumn("value", "Latest value", 100),
-            TextColumn("unit", "Unit", 72),
+            TextColumn("display", "Display name", 190),
+            TextColumn("parameter", "Parameter ID", 215),
+            TextColumn("internal", "Internal name", 165),
+            TextColumn("value", "Latest value", 94),
+            TextColumn("unit", "Unit", 68),
+            TextColumn("acquired", "Acquired at", 122),
+            TextColumn("age", "Age", 72),
+            TextColumn("quality", "Quality", 82),
             TextColumn("type", "Type", 62),
-            TextColumn("support", "Support", 220),
-            TextColumn("quality", "Quality", 90)
+            TextColumn("support", "Support", 205)
         ]);
     }
 
@@ -269,7 +280,7 @@ internal sealed class MainForm : Form
         _selection.Changed += (_, snapshot) =>
             RunOnUi(() => ApplySelectionSnapshot(snapshot));
         _runtime.ProgressChanged += (_, progress) =>
-            RunOnUi(() => ApplyProgress(progress));
+            _liveValues.Publish(progress.Cycle);
         _runtime.Faulted += (_, safeError) => RunOnUi(() =>
         {
             LoggerUiSnapshot snapshot = _stateMachine.Snapshot;
@@ -292,6 +303,7 @@ internal sealed class MainForm : Form
         _searchTextBox.TextChanged += (_, _) => ApplySearchFilter();
         _hzInput.ValueChanged += (_, _) =>
             ApplySelectionSnapshot(_selection.Snapshot);
+        _displayTimer.Tick += (_, _) => RenderLatestValues();
         _parameterGrid.CellBeginEdit += ParameterGridCellBeginEdit;
         _parameterGrid.CellValueChanged += ParameterGridCellValueChanged;
         _parameterGrid.CurrentCellDirtyStateChanged += (_, _) =>
@@ -324,9 +336,11 @@ internal sealed class MainForm : Form
                     definition.InternalName,
                     "—",
                     definition.Unit,
+                    "—",
+                    "—",
+                    quality,
                     definition.DataType,
-                    definition.SupportStatus,
-                    quality);
+                    definition.SupportStatus);
                 DataGridViewRow row = _parameterGrid.Rows[index];
                 row.Tag = definition;
                 for (int column = 1; column < row.Cells.Count; column++)
@@ -338,7 +352,7 @@ internal sealed class MainForm : Form
                 {
                     row.DefaultCellStyle.ForeColor = Color.DimGray;
                     row.Cells[0].Style.BackColor = Color.Gainsboro;
-                    row.Cells[7].Style.ForeColor = Color.DarkRed;
+                    row.Cells["support"].Style.ForeColor = Color.DarkRed;
                 }
                 _parameterRows.Add(definition.ParameterId.Value, row);
             }
@@ -444,12 +458,16 @@ internal sealed class MainForm : Form
         {
             IReadOnlyList<ParameterId> selected =
                 _selection.CaptureForSession();
+            _liveValues.Reset();
+            _lastProgressCycle = 0;
             ResetValuesForNewRun(selected);
             string output = _outputTextBox.Text.Trim();
             double hz = decimal.ToDouble(_hzInput.Value);
             SamplingBudgetEstimate budget = SamplingBudgetEstimator.Estimate(
                 selected,
                 hz);
+            _staleAfter = LiveValuePresenter.StaleAfterForHz(
+                budget.EstimatedEffectiveHz);
             string runDirectory = await _runtime.StartAsync(
                 output,
                 hz,
@@ -460,7 +478,8 @@ internal sealed class MainForm : Form
             AppendEvent(
                 $"Selection locked: {selected.Count} parameters; " +
                 $"live-model jobs={budget.PlannedJobs}; " +
-                $"ceiling={budget.EstimatedMaximumHz:F2} Hz.");
+                $"ceiling={budget.EstimatedMaximumHz:F2} Hz; " +
+                $"stale-after={_staleAfter.TotalMilliseconds:F0} ms.");
             AppendEvent($"Logging started: {runDirectory}");
         }
         catch (Exception exception)
@@ -525,6 +544,8 @@ internal sealed class MainForm : Form
             await _runtime.DisconnectAsync(_lifetime.Token);
             _stateMachine.CompleteDisconnect(operation, succeeded: true);
             _selection.ReleaseSession();
+            _liveValues.Reset();
+            _lastProgressCycle = 0;
             ResetDisplayedValues();
             AppendEvent("Disconnected.");
         }
@@ -603,12 +624,18 @@ internal sealed class MainForm : Form
                     if (!definition.IsSelectable)
                     {
                         row.Cells["value"].Value = "—";
+                        row.Cells["acquired"].Value = "—";
+                        row.Cells["age"].Value = "—";
                         row.Cells["quality"].Value = "withheld";
+                        ApplyQualityStyle(row, null, "withheld");
                     }
                     else if (!isSelected)
                     {
                         row.Cells["value"].Value = "—";
+                        row.Cells["acquired"].Value = "—";
+                        row.Cells["age"].Value = "—";
                         row.Cells["quality"].Value = "not selected";
+                        ApplyQualityStyle(row, null, "not selected");
                     }
                     else if (string.Equals(
                                  row.Cells["quality"].Value?.ToString(),
@@ -616,6 +643,7 @@ internal sealed class MainForm : Form
                                  StringComparison.Ordinal))
                     {
                         row.Cells["quality"].Value = "missing";
+                        ApplyQualityStyle(row, SampleQuality.Missing, null);
                     }
                 }
             }
@@ -684,22 +712,47 @@ internal sealed class MainForm : Form
             $"Visible: {visible}/{Ms43ParameterCatalog.Entries.Count}";
     }
 
-    private void ApplyProgress(SimulatedLoggerProgress progress)
+    private void RenderLatestValues()
     {
-        foreach ((string parameterId, double value) in progress.LatestValues)
+        LiveValueFrame? frame = _liveValues.ReadLatest();
+        if (frame is null)
         {
-            if (_parameterRows.TryGetValue(parameterId, out DataGridViewRow? row))
+            return;
+        }
+
+        long nowTicks = Stopwatch.GetTimestamp();
+        foreach ((string parameterId, LiveValueObservation observation) in
+                 frame.Values)
+        {
+            if (!_parameterRows.TryGetValue(parameterId, out DataGridViewRow? row) ||
+                row.Tag is not LoggerParameterDefinition definition)
             {
-                row.Cells["value"].Value = value.ToString(
-                    "F3",
-                    CultureInfo.InvariantCulture);
-                row.Cells["quality"].Value = "valid";
+                continue;
             }
+
+            LiveValuePresentation presentation = LiveValuePresenter.Project(
+                definition,
+                observation,
+                nowTicks,
+                _staleAfter);
+            row.Cells["value"].Value = presentation.ValueText;
+            row.Cells["unit"].Value = presentation.UnitText;
+            row.Cells["acquired"].Value = presentation.AcquiredAtText;
+            row.Cells["age"].Value = presentation.AgeText;
+            row.Cells["quality"].Value = presentation.ErrorCode is null
+                ? presentation.QualityText
+                : $"{presentation.QualityText}: {presentation.ErrorCode}";
+            ApplyQualityStyle(row, presentation.EffectiveQuality, null);
         }
-        if (progress.CyclesWritten == 1 || progress.CyclesWritten % 25 == 0)
+
+        if (frame.CycleId != _lastProgressCycle &&
+            (frame.CycleId == 1 || frame.CycleId % 25 == 0))
         {
-            AppendEvent($"Progress: {progress.CyclesWritten} cycles");
+            AppendEvent(
+                $"Progress: {frame.CycleId} acquisition cycles; " +
+                $"GUI reads={_liveValues.SnapshotReads}");
         }
+        _lastProgressCycle = Math.Max(_lastProgressCycle, frame.CycleId);
     }
 
     private void ResetValuesForNewRun(IReadOnlyCollection<ParameterId> selected)
@@ -709,12 +762,45 @@ internal sealed class MainForm : Form
         {
             DataGridViewRow row = _parameterRows[definition.ParameterId.Value];
             row.Cells["value"].Value = "—";
-            row.Cells["quality"].Value = !definition.IsSelectable
+            row.Cells["unit"].Value = definition.Unit;
+            row.Cells["acquired"].Value = "—";
+            row.Cells["age"].Value = "—";
+            string quality = !definition.IsSelectable
                 ? "withheld"
                 : selectedSet.Contains(definition.ParameterId)
                     ? "missing"
                     : "not selected";
+            row.Cells["quality"].Value = quality;
+            ApplyQualityStyle(
+                row,
+                quality == "missing" ? SampleQuality.Missing : null,
+                quality);
         }
+    }
+
+    private static void ApplyQualityStyle(
+        DataGridViewRow row,
+        SampleQuality? quality,
+        string? specialState)
+    {
+        Color color = specialState switch
+        {
+            "withheld" => Color.DimGray,
+            "not selected" => SystemColors.GrayText,
+            _ => quality switch
+            {
+                SampleQuality.Valid => Color.DarkGreen,
+                SampleQuality.Stale => Color.DarkOrange,
+                SampleQuality.Missing => Color.DarkGoldenrod,
+                SampleQuality.Timeout => Color.OrangeRed,
+                SampleQuality.Error => Color.DarkRed,
+                _ => SystemColors.ControlText
+            }
+        };
+        row.Cells["value"].Style.ForeColor = color;
+        row.Cells["acquired"].Style.ForeColor = color;
+        row.Cells["age"].Style.ForeColor = color;
+        row.Cells["quality"].Style.ForeColor = color;
     }
 
     private void ResetDisplayedValues() =>
@@ -779,6 +865,8 @@ internal sealed class MainForm : Form
         }
         finally
         {
+            _displayTimer.Stop();
+            _displayTimer.Dispose();
             _selection.ReleaseSession();
             _lifetime.Cancel();
             _lifetime.Dispose();

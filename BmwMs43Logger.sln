@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BmwMs43Logger.App", "src\Bm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BmwMs43Logger.ParameterManagerProbe", "tools\BmwMs43Logger.ParameterManagerProbe\BmwMs43Logger.ParameterManagerProbe.csproj", "{11FAC705-F4D6-4D47-A254-C6E884B5E343}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BmwMs43Logger.LiveValueProbe", "tools\BmwMs43Logger.LiveValueProbe\BmwMs43Logger.LiveValueProbe.csproj", "{BD5EE11A-0113-4984-A9C7-F046480582D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -199,6 +201,18 @@ Global
 		{11FAC705-F4D6-4D47-A254-C6E884B5E343}.Release|x64.Build.0 = Release|Any CPU
 		{11FAC705-F4D6-4D47-A254-C6E884B5E343}.Release|x86.ActiveCfg = Release|Any CPU
 		{11FAC705-F4D6-4D47-A254-C6E884B5E343}.Release|x86.Build.0 = Release|Any CPU
+		{BD5EE11A-0113-4984-A9C7-F046480582D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD5EE11A-0113-4984-A9C7-F046480582D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD5EE11A-0113-4984-A9C7-F046480582D2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BD5EE11A-0113-4984-A9C7-F046480582D2}.Debug|x64.Build.0 = Debug|Any CPU
+		{BD5EE11A-0113-4984-A9C7-F046480582D2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BD5EE11A-0113-4984-A9C7-F046480582D2}.Debug|x86.Build.0 = Debug|Any CPU
+		{BD5EE11A-0113-4984-A9C7-F046480582D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD5EE11A-0113-4984-A9C7-F046480582D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD5EE11A-0113-4984-A9C7-F046480582D2}.Release|x64.ActiveCfg = Release|Any CPU
+		{BD5EE11A-0113-4984-A9C7-F046480582D2}.Release|x64.Build.0 = Release|Any CPU
+		{BD5EE11A-0113-4984-A9C7-F046480582D2}.Release|x86.ActiveCfg = Release|Any CPU
+		{BD5EE11A-0113-4984-A9C7-F046480582D2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -217,5 +231,6 @@ Global
 		{F4A4C2F8-5895-4407-BFE4-577FFF38B61D} = {07C2787E-EAC7-C090-1BA3-A61EC2A24D84}
 		{3600D1AD-2525-4B11-BCE1-0D7353FF770B} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{11FAC705-F4D6-4D47-A254-C6E884B5E343} = {07C2787E-EAC7-C090-1BA3-A61EC2A24D84}
+		{BD5EE11A-0113-4984-A9C7-F046480582D2} = {07C2787E-EAC7-C090-1BA3-A61EC2A24D84}
 	EndGlobalSection
 EndGlobal

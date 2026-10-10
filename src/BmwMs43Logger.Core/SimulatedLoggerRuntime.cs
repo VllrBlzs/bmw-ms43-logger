@@ -6,7 +6,8 @@ namespace BmwMs43Logger.Core;
 public sealed record SimulatedLoggerProgress(
     long CyclesWritten,
     DateTimeOffset ObservedAtUtc,
-    IReadOnlyDictionary<string, double> LatestValues);
+    IReadOnlyDictionary<string, double> LatestValues,
+    NormalizedCycle Cycle);
 
 public sealed record SimulatedLoggerSessionResult(
     string RunDirectory,
@@ -226,17 +227,17 @@ public sealed class SimulatedLoggerRuntime : IAsyncDisposable
         long startedTicks = Stopwatch.GetTimestamp();
         string runDirectory = Path.Combine(
             outputRoot,
-            "bmw10_simulated_" +
+            "bmw11_simulated_" +
             startedAtUtc.UtcDateTime.ToString("yyyyMMdd_HHmmss_fff", CultureInfo.InvariantCulture) +
             "_" + Guid.NewGuid().ToString("N")[..6]);
-        string sessionId = "bmw10.simulated." +
+        string sessionId = "bmw11.simulated." +
             startedAtUtc.UtcDateTime.ToString("yyyyMMdd_HHmmss", CultureInfo.InvariantCulture);
         var descriptor = new SessionLogDescriptor(
             sessionId,
             "bmw.e39.525i.m54b25.ms43.ms430ds0.simulated",
             SgbdSha256,
             BackendSha256,
-            "0.2.0-bmw10-observed22-selection",
+            "0.3.0-bmw11-live-values",
             CatalogSha256,
             requestedHz,
             selectedParameters);
@@ -441,7 +442,7 @@ public sealed class SimulatedLoggerRuntime : IAsyncDisposable
                 StringComparer.Ordinal);
         ProgressChanged?.Invoke(
             this,
-            new SimulatedLoggerProgress(cycles, observedAtUtc, latest));
+            new SimulatedLoggerProgress(cycles, observedAtUtc, latest, cycle));
     }
 
     private static long TicksFromMilliseconds(double milliseconds) =>
