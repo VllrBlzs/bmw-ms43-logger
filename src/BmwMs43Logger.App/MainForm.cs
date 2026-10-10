@@ -7,7 +7,8 @@ internal sealed class MainForm : Form
 {
     private readonly LoggerUiStateMachine _stateMachine = new();
     private readonly ParameterSelectionModel _selection = new();
-    private readonly SimulatedLoggerRuntime _runtime = new();
+    private readonly ILoggerRuntime _runtime;
+    private readonly string _repositoryRoot;
     private readonly LatestLiveValueBuffer _liveValues = new();
     private readonly LivePlotHistory _plotHistory = new();
     private readonly HashSet<ParameterId> _plotSelection = new(
@@ -46,9 +47,13 @@ internal sealed class MainForm : Form
     private bool _shutdownStarted;
     private bool _shutdownComplete;
 
-    public MainForm()
+    public MainForm(ILoggerRuntime runtime, string repositoryRoot)
     {
-        Text = "BMW MS43 Read-only Logger — BMW-12 bounded live plots (offline)";
+        _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
+        _repositoryRoot = Path.GetFullPath(repositoryRoot);
+        Text = _runtime.Identity.Mode == LoggerRuntimeMode.LiveReadOnly
+            ? "BMW MS43 Read-only Logger — BMW-14 LIVE (pinned read-only)"
+            : "BMW MS43 Read-only Logger — BMW-14 offline simulation";
         StartPosition = FormStartPosition.CenterScreen;
         MinimumSize = new Size(1150, 760);
         Size = new Size(1500, 960);
@@ -60,9 +65,10 @@ internal sealed class MainForm : Form
         ApplySnapshot(_stateMachine.Snapshot);
         _displayTimer.Start();
         AppendEvent(
-            "Offline bounded-plot GUI ready. Up to five separately scaled channels " +
-            "use acquisition timestamps and gap-aware normalized samples. " +
-            "No ECU interface has been created.");
+            _runtime.Identity.Mode == LoggerRuntimeMode.LiveReadOnly
+                ? "LIVE read-only mode armed. Connect performs one allowlisted RPM " +
+                  "handshake on COM5; Start permits only pinned STATUS jobs with empty arguments."
+                : "Offline simulation ready. No ECU interface has been created.");
     }
 
     protected override void OnFormClosing(FormClosingEventArgs e)
@@ -114,9 +120,12 @@ internal sealed class MainForm : Form
 
         _modeLabel.AutoSize = true;
         _modeLabel.Font = new Font(Font, FontStyle.Bold);
-        _modeLabel.ForeColor = Color.DarkOrange;
-        _modeLabel.Text =
-            "OFFLINE SIMULATION — COMMUNICATION_ATTEMPTED=False — BMW-12";
+        _modeLabel.ForeColor = _runtime.Identity.Mode == LoggerRuntimeMode.LiveReadOnly
+            ? Color.DarkRed
+            : Color.DarkOrange;
+        _modeLabel.Text = _runtime.Identity.Mode == LoggerRuntimeMode.LiveReadOnly
+            ? "LIVE READ-ONLY — COM5 — PINNED MS43 PROFILE — BMW-14"
+            : "OFFLINE SIMULATION — COMMUNICATION_ATTEMPTED=False — BMW-14";
         root.Controls.Add(_modeLabel, 0, 0);
 
         var commandRow = new FlowLayoutPanel
@@ -167,8 +176,13 @@ internal sealed class MainForm : Form
             Margin = new Padding(0, 7, 8, 0)
         }, 0, 0);
         _outputTextBox.Dock = DockStyle.Fill;
-        _outputTextBox.Text = Path.GetFullPath(
-            Path.Combine("data", "private", "bmw12-gui-sim"));
+        _outputTextBox.Text = Path.Combine(
+            _repositoryRoot,
+            "data",
+            "private",
+            _runtime.Identity.Mode == LoggerRuntimeMode.LiveReadOnly
+                ? "bmw14-gui-live"
+                : "bmw14-gui-sim");
         outputRow.Controls.Add(_outputTextBox, 1, 0);
         ConfigureButton(_browseButton, "Browse…", 88);
         ConfigureButton(_openFolderButton, "Open last run", 112);
@@ -300,15 +314,26 @@ internal sealed class MainForm : Form
             _liveValues.Publish(progress.Cycle);
             _plotHistory.Publish(progress.Cycle);
         };
-        _runtime.Faulted += (_, safeError) => RunOnUi(() =>
+        _runtime.Faulted += (_, fault) => RunOnUi(() =>
         {
+            _selection.ReleaseSession();
+            if (!string.IsNullOrWhiteSpace(fault.RunDirectory))
+            {
+                _lastRunDirectory = fault.RunDirectory;
+            }
             LoggerUiSnapshot snapshot = _stateMachine.Snapshot;
             if (snapshot.State is not (
                     LoggerUiState.Disconnected or LoggerUiState.Faulted))
             {
-                _stateMachine.ReportRuntimeFault(safeError);
+                _stateMachine.ReportRuntimeFault(fault.Code);
             }
-            AppendEvent($"Runtime fault: {safeError}");
+            AppendEvent($"Runtime fault: {fault.Code}; {fault.SafeMessage}");
+            if (fault.RequiresReconnect)
+            {
+                AppendEvent(
+                    "Reconnect gate: Disconnect, restore ignition/interface, then Connect. " +
+                    "The next Start creates a new acquisition epoch.");
+            }
         });
 
         _connectButton.Click += async (_, _) => await ConnectAsync();
@@ -510,12 +535,15 @@ internal sealed class MainForm : Form
             return;
         }
 
-        AppendEvent("Connecting simulated backend…");
+        AppendEvent($"Connecting {_runtime.Identity.DisplayName}…");
         try
         {
             await _runtime.ConnectAsync(_lifetime.Token);
             _stateMachine.CompleteConnect(operation, succeeded: true);
-            AppendEvent("Simulated backend ready.");
+            AppendEvent(
+                _runtime.Identity.Mode == LoggerRuntimeMode.LiveReadOnly
+                    ? "Pinned MS43 handshake passed; read-only backend ready."
+                    : "Offline simulation ready.");
         }
         catch (Exception exception)
         {
@@ -607,7 +635,7 @@ internal sealed class MainForm : Form
         AppendEvent("Stopping and finalizing CSV…");
         try
         {
-            SimulatedLoggerSessionResult result = await _runtime.StopAsync(
+            LoggerSessionResult result = await _runtime.StopAsync(
                 _lifetime.Token);
             _lastRunDirectory = result.RunDirectory;
             _stateMachine.CompleteStop(operation, succeeded: true);
@@ -1062,9 +1090,13 @@ internal sealed class MainForm : Form
     private static string SafeError(Exception exception) => exception switch
     {
         OperationCanceledException => "OPERATION_CANCELLED",
+        FileNotFoundException => "PINNED_RUNTIME_FILE_MISSING",
         UnauthorizedAccessException => "OUTPUT_ACCESS_DENIED",
         IOException => "OUTPUT_IO_ERROR",
         ArgumentException => "INVALID_CONFIGURATION",
+        InvalidOperationException when exception.Message.StartsWith(
+            "BMW14_CONNECT_",
+            StringComparison.Ordinal) => exception.Message,
         InvalidOperationException => "INVALID_STATE",
         _ => "UNEXPECTED_GUI_ERROR"
     };

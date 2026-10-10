@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
     <OutputType>WinExe</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>BmwMs43Logger</AssemblyName>
@@ -8,5 +9,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BmwMs43Logger.Core\BmwMs43Logger.Core.csproj" />
+    <ProjectReference Include="..\BmwMs43Logger.Ediabas\BmwMs43Logger.Ediabas.csproj" />
   </ItemGroup>
 </Project>
